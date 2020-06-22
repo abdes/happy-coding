@@ -1,0 +1,22 @@
+{
+  "name": "@npcz/ngx-highlight",
+  "version": "0.0.1",
+  "description": "Angular directive to highlight an element on hover or focus",
+  "license": "BSD-3",
+  "author": "Abdessattar Sassi (https://github.com/abdes)",
+  "bugs": "https://github.com/abdes/happy-coding/issues",
+  "repository": "github:abdes/happy-coding",
+  "homepage": "https://github.com/abdes/happy-coding",
+  "keywords": [
+    "angular, directive, hover, focus"
+  ],
+  "peerDependencies": {
+    "@angular/common": "^9.1.11",
+    "@angular/core": "^9.1.11",
+    "lodash": "^4.17.15",
+    "rxjs": "^6.5.5"
+  },
+  "dependencies": {
+    "tslib": "^1.13.0"
+  }
+}

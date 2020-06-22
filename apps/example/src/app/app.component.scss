@@ -1,3 +1,12 @@
+.root__container {
+  width: 100vw;
+  height: 100vh;
+}
+
+header {
+  padding: 5px;
+}
+
 main {
   padding: 0 36px;
 }
@@ -27,7 +36,6 @@ pre {
 
 details {
   border-radius: 4px;
-  color: #333;
   background-color: rgba(0, 0, 0, 0);
   border: 1px solid rgba(0, 0, 0, 0.12);
   padding: 3px 9px;

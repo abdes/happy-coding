@@ -1,0 +1,56 @@
+// Copyright (c) 2019-2020 The Authors.
+// This file is part of ngx-highlight.
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
+// Import library functions for theme creation.
+@import '~@angular/material/theming';
+
+@mixin ngx-highlight-color($theme) {
+  $is-dark-theme: map-get($theme, is-dark);
+  // Extract the palettes you need from the theme definition.
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  // Styling that depends on the color theme
+
+  /*
+   In order to avoid the element position jumping around when adding outline
+   border, we do not use 'border' style. Instead we make the border using a
+   box-shadow with no blur
+  */
+
+  // Hover effects
+  .hc-hover-outline {
+    box-shadow: 0px 0px 0px 1px mat-color($accent);
+  }
+  .hc-hover-shadow {
+    box-shadow: 0px 0px 3px mat-color($background, 200);
+  }
+  .hc-hover-background {
+    background-color: mat-color($background, 'hover') !important;
+  }
+
+  // Focus effects
+  .hc-focus-outline {
+    box-shadow: 0px 0px 0px 2px mat-color($accent);
+  }
+  .hc-focus-shadow {
+    box-shadow: 0px 0px 3px 1px mat-color($accent);
+  }
+  .hc-focus-background {
+    background-color: mat-color($accent);
+  }
+}
+
+@mixin ngx-highlight-typography($config) {
+}
+
+// Angular material implementation is changing to enhance theming. For now it
+// just support color theming.
+@mixin ngx-highlight-theme($theme) {
+  @include ngx-highlight-color($theme);
+}
