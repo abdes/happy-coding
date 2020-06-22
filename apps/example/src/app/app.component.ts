@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'happy-coding-root',
+  selector: 'exmp-app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
