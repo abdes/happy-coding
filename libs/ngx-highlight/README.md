@@ -77,7 +77,9 @@ export class AppComponent {
 #### 4. Include the theming support styles in your app
 
 ngx-highlight uses SASS styling and provides mixins that can be integrated into
-and angular material application theme. Simply follow the instructions at https://material.angular.io/guide/theming. The theme file is located in `node_modules/@happycoding/ngx-highlight/src/styles`.
+and angular material application theme. Simply follow the instructions at
+https://material.angular.io/guide/theming. The theme file is located in
+`node_modules/@npcz/ngx-highlight/src/styles`.
 
 Alternatively you can define your own style using the following CSS classes:
 
