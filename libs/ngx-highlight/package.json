@@ -1,5 +1,5 @@
 {
-  "name": "@happy-coding/ngx-highlight",
+  "name": "@npcz/ngx-highlight",
   "version": "0.0.1",
   "description": "Angular directive to highlight an element on hover or focus",
   "license": "BSD-3",
