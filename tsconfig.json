@@ -15,7 +15,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@happy-coding/ngx-highlight": ["libs/ngx-highlight/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

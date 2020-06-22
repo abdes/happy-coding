@@ -25,6 +25,9 @@
     "example-e2e": {
       "tags": ["e2e"],
       "implicitDependencies": ["example"]
+    },
+    "ngx-highlight": {
+      "tags": ["lib", "shared", "publishable"]
     }
   }
 }
