@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HighlightStyleConfig } from '@happy-coding/ngx-highlight';
+import { HighlightStyleConfig } from '@npcz/ngx-highlight';
 
 @Component({
   selector: 'exmp-app-root',

@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { HighlightModule } from '@happy-coding/ngx-highlight';
+import { HighlightModule } from '@npcz/ngx-highlight';
 
 @NgModule({
   declarations: [AppComponent],
