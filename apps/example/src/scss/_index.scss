@@ -1,0 +1,77 @@
+// Copyright (c) 2019-2020 The Authors.
+// This file is part of TagLand Maestro.
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
+@import '~@angular/material/theming';
+@import 'variables';
+
+// app specific styles
+// @import 'tl-activity-bar-theme';
+// @import 'tl-item-collection-theme';
+// @import 'tl-locations-explorer-theme';
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// **Be sure that you only ever include this mixin once!**
+@include mat-core();
+
+// Define your application's custom theme.
+$primary: mat-palette($mat-indigo, 700, 300, 900);
+$accent: mat-palette($mat-light-blue);
+$warn: mat-palette($mat-deep-orange, A200);
+$theme: mat-light-theme($primary, $accent, $warn);
+
+// Include theme styles for Angular Material components.
+@include angular-material-theme($theme);
+
+// Include theme styles for your custom components.
+
+// Our dark theme
+.dark-theme {
+  color: $light-primary-text;
+  $dark-primary: mat-palette($mat-yellow);
+  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+  $dark-warn: mat-palette($mat-red);
+  $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+  // Include theme styles for Angular Material components.
+  @include angular-material-theme($dark-theme);
+
+  // Include theme styles for your custom components.
+
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #f5f5f5;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    background-color: #f5f5f5;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #595b5d;
+  }
+}
+
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}

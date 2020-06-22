@@ -1,2 +1,2 @@
 export const getGreeting = (): Cypress.Chainable<JQuery<HTMLHeadingElement>> =>
-  cy.get('h1');
+  cy.get('mat-toolbar > .header__greeting');
