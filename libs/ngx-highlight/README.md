@@ -6,13 +6,13 @@ mouseleave) or focus (focusin/focusout) or both.
 ## Installation
 
 ```sh
-npm install @happy-coding/ngx-highlight --save
+npm install @npcz/ngx-highlight --save
 ```
 
 or
 
 ```sh
-yarn add @happy-coding/ngx-highlight
+yarn add @npcz/ngx-highlight
 ```
 
 ## Usage
@@ -23,7 +23,7 @@ yarn add @happy-coding/ngx-highlight
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { HighlightModule } from '@happy-coding/ngx-highlight';
+import { HighlightModule } from '@npcz/ngx-highlight';
 
 import { AppComponent } from './app.component';
 
@@ -52,7 +52,7 @@ export type HighlightStyleConfig = {
 
 ```ts
 import { Component } from '@angular/core';
-import { HighlightStyleConfig } from '@happy-coding/ngx-highlight';
+import { HighlightStyleConfig } from '@npcz/ngx-highlight';
 
 @Component({
   selector: 'exmp-app-root',
