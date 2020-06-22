@@ -14,7 +14,7 @@ module.exports = {
     'plugin:prettier/recommended',
     'plugin:@angular-eslint/recommended',
   ],
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', '@nrwl/eslint-plugin-nx'],
   rules: {
     // ORIGINAL tslint.json -> "directive-selector": [true, "attribute", "app", "camelCase"],
     '@angular-eslint/directive-selector': [
@@ -26,6 +26,28 @@ module.exports = {
     '@angular-eslint/component-selector': [
       'error',
       { type: 'element', prefix: 'hc', style: 'kebab-case' },
+    ],
+
+    // NX dependency rules
+    '@nrwl/nx/enforce-module-boundaries': [
+      'error',
+      {
+        allow: [],
+        depConstraints: [
+          {
+            sourceTag: 'app',
+            onlyDependOnLibsWithTags: ['lib'],
+          },
+          {
+            sourceTag: 'shared',
+            onlyDependOnLibsWithTags: ['shared'],
+          },
+          {
+            sourceTag: 'publishable',
+            onlyDependOnLibsWithTags: ['never'],
+          },
+        ],
+      },
     ],
   },
   overrides: [

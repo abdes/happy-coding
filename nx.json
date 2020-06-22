@@ -20,10 +20,10 @@
   },
   "projects": {
     "example": {
-      "tags": []
+      "tags": ["app", "client", "web"]
     },
     "example-e2e": {
-      "tags": [],
+      "tags": ["e2e"],
       "implicitDependencies": ["example"]
     }
   }
