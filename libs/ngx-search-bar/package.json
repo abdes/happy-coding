@@ -1,0 +1,30 @@
+{
+  "name": "@npcz/ngx-search-bar",
+  "version": "0.0.1",
+  "description": "Angular component for a customizable material search bar",
+  "license": "BSD-3-Clause",
+  "author": "Abdessattar Sassi (https://github.com/abdes)",
+  "bugs": "https://github.com/abdes/happy-coding/issues",
+  "repository": "github:abdes/happy-coding",
+  "homepage": "https://github.com/abdes/happy-coding",
+  "keywords": [
+    "angular, material, component, search, autocomplete"
+  ],
+  "scripts": {
+    "changelog": "cd ../.. && yarn auto-changelog --stdout --tag-pattern 'ngx-search-bar-*' --unreleased-only"
+  },
+  "peerDependencies": {
+    "@angular/animations": "~9.1.11",
+    "@angular/cdk": "^9.2.4",
+    "@angular/common": "^9.1.11",
+    "@angular/core": "^9.1.11",
+    "@angular/material": "^9.2.4",
+    "rxjs": "^6.5.5",
+    "tslib": "^1.10.0"
+  },
+  "dependencies": {
+    "@angular/flex-layout": "^9.0.0-beta.31",
+    "@npcz/ngx-highlight": "^0.0.3",
+    "ngx-ellipsis": "2.3.1"
+  }
+}

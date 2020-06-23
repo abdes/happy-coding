@@ -1,0 +1,32 @@
+.clear__separator {
+  border-right: thin;
+  border-right-style: solid;
+  border-color: darkgrey;
+  width: 5px;
+  height: 60%;
+  margin-right: 5px;
+}
+
+.search__input {
+  border: none;
+  outline: none;
+  margin: 0;
+}
+
+.search__wrapper {
+  margin: 4px;
+  padding: 5px;
+  border-radius: 8px;
+}
+
+.search-category__button {
+  padding: 0 0 0 5px;
+  margin-right: 5px;
+  min-width: 80px;
+  max-width: 160px;
+  flex: 1 0 20%;
+}
+
+.search-category__text {
+  overflow: hidden;
+}

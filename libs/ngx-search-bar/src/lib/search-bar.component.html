@@ -1,0 +1,81 @@
+<form
+  [formGroup]="_searchForm"
+  id="search__wrapper"
+  class="search__wrapper"
+  [hcHighlight]="highlightStyle"
+  (ngSubmit)="_onSubmit()"
+>
+  <div class="search__container" fxLayout="row">
+    <!--
+      Set the type to 'button' so that the only submit button in the form is
+      the 'search__submit' button
+    -->
+    <button
+      type="button"
+      *ngIf="categoryList"
+      mat-stroked-button
+      class="search-category__button"
+      [disabled]="disabled"
+      [matMenuTriggerFor]="appMenu"
+      (menuClosed)="_onCategoryMenuClosed()"
+    >
+      <div fxLayout="row" fxFlex="grow">
+        <div
+          class="search-category__text"
+          fxFlex="grow"
+          ellipsis
+          [ellipsis-content]="category"
+        ></div>
+        <mat-icon fxFlexAlign="center">arrow_drop_down</mat-icon>
+      </div>
+    </button>
+
+    <!--
+      Because autocomplete is optional, we avoid errors on the input field by
+      setting the matAutocompleteDisabled property based on whether we do have
+      an autoComplete component set or not.
+    -->
+    <input
+      #search__input
+      type="text"
+      matInput
+      class="search__input"
+      fxFlex="grow"
+      [placeholder]="placeholder"
+      formControlName="searchInput"
+      [matAutocomplete]="autoComplete"
+      [matAutocompleteDisabled]="!autoComplete"
+    />
+    <div *ngIf="searchQuery && clearButton" fxLayout="row">
+      <!--
+        Set the type to 'button' so that the only submit button in the form is
+        the 'search__submit' button
+      -->
+      <button
+        type="button"
+        mat-icon-button
+        aria-label="Clear"
+        (click)="clear()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+      <div fxFlexAlign="center" class="clear__separator"></div>
+    </div>
+    <!-- This is the only button that must be set with type 'submit' -->
+    <button #search__submit type="submit" mat-icon-button [disabled]="disabled">
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+</form>
+
+<mat-menu #appMenu="matMenu">
+  <ng-template matMenuContent>
+    <button
+      *ngFor="let category of categoryList"
+      (click)="_onCategorySelected(category)"
+      mat-menu-item
+    >
+      {{ category }}
+    </button>
+  </ng-template>
+</mat-menu>

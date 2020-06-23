@@ -28,6 +28,9 @@
     },
     "ngx-highlight": {
       "tags": ["lib", "shared", "publishable"]
+    },
+    "ngx-search-bar": {
+      "tags": ["lib", "publishable", "shared"]
     }
   }
 }

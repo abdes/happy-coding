@@ -176,6 +176,51 @@
           "style": "scss"
         }
       }
+    },
+    "ngx-search-bar": {
+      "projectType": "library",
+      "root": "libs/ngx-search-bar",
+      "sourceRoot": "libs/ngx-search-bar/src",
+      "prefix": "msb",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/ngx-search-bar/tsconfig.lib.json",
+            "project": "libs/ngx-search-bar/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ngx-search-bar/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "eslintConfig": "libs/ngx-search-bar/.eslintrc.js",
+            "tsConfig": [
+              "libs/ngx-search-bar/tsconfig.lib.json",
+              "libs/ngx-search-bar/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/ngx-search-bar/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ngx-search-bar/jest.config.js",
+            "tsConfig": "libs/ngx-search-bar/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/ngx-search-bar/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {
