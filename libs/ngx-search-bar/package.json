@@ -10,9 +10,6 @@
   "keywords": [
     "angular, material, component, search, autocomplete"
   ],
-  "scripts": {
-    "changelog": "cd ../.. && yarn auto-changelog --stdout --tag-pattern 'ngx-search-bar-*' --unreleased-only"
-  },
   "peerDependencies": {
     "@angular/animations": "~9.1.11",
     "@angular/cdk": "^9.2.4",
