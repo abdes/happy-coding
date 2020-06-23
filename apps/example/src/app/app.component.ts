@@ -11,7 +11,16 @@ export class AppComponent {
   isDarkTheme = false;
 
   title = 'example';
-  highlightStyle: HighlightStyleConfig = {
+  readonly highlightStyle: HighlightStyleConfig = {
     hover: 'background',
+    focus: 'outline',
   };
+
+  readonly categories = [
+    'All products',
+    'Health',
+    'Computers & Accessories',
+    'Electronics',
+    'Home & Kitchen',
+  ];
 }

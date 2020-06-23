@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { HighlightModule } from '@npcz/ngx-highlight';
+import { SearchBarModule } from '@npcz/ngx-search-bar';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,6 +15,7 @@ import { HighlightModule } from '@npcz/ngx-highlight';
     BrowserAnimationsModule,
     MatToolbarModule,
     HighlightModule,
+    SearchBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
