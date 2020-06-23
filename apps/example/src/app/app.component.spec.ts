@@ -1,7 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { HighlightModule } from '@happy-coding/ngx-highlight';
+import { HighlightModule } from '@npcz/ngx-highlight';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
