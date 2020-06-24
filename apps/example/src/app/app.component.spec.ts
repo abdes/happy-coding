@@ -3,36 +3,32 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import { TestBed, async } from '@angular/core/testing';
+import { Spectator, createComponentFactory } from '@ngneat/spectator/jest';
 import { AppComponent } from './app.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HighlightModule } from '@npcz/ngx-highlight';
+import { SearchBarModule } from '@npcz/ngx-search-bar';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [AppComponent],
-      imports: [MatToolbarModule, HighlightModule],
-    }).compileComponents();
-  }));
+  let spectator: Spectator<AppComponent>;
+  const createComponent = createComponentFactory({
+    component: AppComponent,
+    imports: [MatToolbarModule, HighlightModule, SearchBarModule],
+  });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    spectator = createComponent();
+    expect(spectator.component).toBeTruthy();
   });
 
   it('should have as title "example"', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('example');
+    spectator = createComponent();
+    expect(spectator.component.title).toEqual('example');
   });
 
   it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.header__greeting').textContent).toContain(
+    spectator = createComponent();
+    expect(spectator.query('.header__greeting')).toHaveText(
       'Welcome to example!'
     );
   });
