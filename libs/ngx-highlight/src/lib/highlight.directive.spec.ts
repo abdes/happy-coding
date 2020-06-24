@@ -31,6 +31,13 @@ describe('HighlightDirective ', () => {
       expect(host.element).not.toHaveClass(effectClass);
     }
   );
+  const checkHoverEffectNotApplied = fakeAsync((debounceTime: number) => {
+    host.dispatchMouseEvent(host.element, 'mouseenter');
+    host.tick(debounceTime);
+    expect(host.element).not.toHaveClass('hc-hover-background');
+    expect(host.element).not.toHaveClass('hc-hover-shadow');
+    expect(host.element).not.toHaveClass('hc-hover-outline');
+  });
 
   const checkFocusEffectApplied = fakeAsync(
     (style: HighlightStyle, debounceTime: number) => {
@@ -44,17 +51,101 @@ describe('HighlightDirective ', () => {
       expect(host.element).not.toHaveClass(effectClass);
     }
   );
+  const checkFocusEffectNotApplied = fakeAsync((debounceTime: number) => {
+    host.dispatchMouseEvent(host.element, 'focusin');
+    host.tick(debounceTime);
+    expect(host.element).not.toHaveClass('hc-focus-background');
+    expect(host.element).not.toHaveClass('hc-focus-shadow');
+    expect(host.element).not.toHaveClass('hc-focus-outline');
+  });
 
-  const checkEffectApplied = (config: HighlightStyleConfig) => {
-    if (config?.hover) {
+  const checkEffect = (config: HighlightStyleConfig) => {
+    if (!config?.hover || config.hover == 'none') {
+      checkHoverEffectNotApplied(config.debounceTime);
+    } else {
       checkHoverEffectApplied(config.hover, config.debounceTime);
     }
-    if (config?.focus) {
+    if (!config?.focus || config.focus == 'none') {
+      checkFocusEffectNotApplied(config.debounceTime);
+    } else {
       checkFocusEffectApplied(config.focus, config.debounceTime);
     }
   };
 
   const TEST_STYLES: HighlightStyle[] = ['background', 'shadow', 'outline'];
+
+  it('should merge provided config with default config', () => {
+    const TEST_CONFIGS: HighlightStyleConfig[] = [
+      {
+        hover: 'background',
+        debounceTime: 100,
+      },
+      {
+        focus: 'shadow',
+        debounceTime: 200,
+      },
+      {
+        debounceTime: 80,
+      },
+      {
+        focus: 'outline',
+        hover: 'shadow',
+      },
+      {
+        focus: 'outline',
+        hover: 'shadow',
+        debounceTime: 120,
+      },
+      {},
+    ];
+    const EXPECTED_CONFIGS: HighlightStyleConfig[] = [
+      {
+        hover: 'background',
+        focus: 'none',
+        debounceTime: 100,
+      },
+      {
+        focus: 'shadow',
+        hover: 'none',
+        debounceTime: 200,
+      },
+      {
+        focus: 'none',
+        hover: 'none',
+        debounceTime: 80,
+      },
+      {
+        focus: 'outline',
+        hover: 'shadow',
+        debounceTime: 50,
+      },
+      {
+        focus: 'outline',
+        hover: 'shadow',
+        debounceTime: 120,
+      },
+      {
+        focus: 'none',
+        hover: 'none',
+        debounceTime: 50,
+      },
+    ];
+
+    host = createHost(undefined, {
+      hostProps: {
+        style: undefined,
+      },
+    });
+    expect(host.component.highlightStyle).toEqual({
+      hover: 'none',
+      focus: 'none',
+      debounceTime: 50,
+    });
+    for (const [index, config] of TEST_CONFIGS.entries()) {
+      host.component.highlightStyle = config;
+      expect(host.component.highlightStyle).toEqual(EXPECTED_CONFIGS[index]);
+    }
+  });
 
   describe('hover', () => {
     it('should debounce the mouse events before applying the hover style', fakeAsync(() => {
@@ -86,19 +177,15 @@ describe('HighlightDirective ', () => {
       expect(host.element).not.toHaveClass('hc-hover-background');
     }));
 
-    it('should default to none if no style is provided', fakeAsync(() => {
+    it('should default to none if no style is provided', () => {
       const config: HighlightStyleConfig = {
         debounceTime: 80,
       };
       host = createHost(undefined, {
         hostProps: { style: config },
       });
-      host.dispatchMouseEvent(host.element, 'mouseenter');
-      host.tick(config.debounceTime);
-      expect(host.element).not.toHaveClass('hc-hover-background');
-      expect(host.element).not.toHaveClass('hc-hover-shadow');
-      expect(host.element).not.toHaveClass('hc-hover-outline');
-    }));
+      checkEffect(config);
+    });
 
     it('should use 50ms as a default debounce time if none is provided', () => {
       const config: HighlightStyleConfig = {
@@ -107,7 +194,7 @@ describe('HighlightDirective ', () => {
       host = createHost(undefined, {
         hostProps: { style: config },
       });
-      checkEffectApplied({ ...config, debounceTime: 50 });
+      checkEffect({ ...config, debounceTime: 50 });
     });
 
     it('should use 0ms if provided debounce time is < 0', () => {
@@ -118,10 +205,10 @@ describe('HighlightDirective ', () => {
       host = createHost(undefined, {
         hostProps: { style: config },
       });
-      checkEffectApplied({ ...config, debounceTime: 0 });
+      checkEffect({ ...config, debounceTime: 0 });
     });
 
-    it('should not apply the effect if the style is none', fakeAsync(() => {
+    it('should not apply the effect if the style is none', () => {
       const config: HighlightStyleConfig = {
         hover: 'none',
         debounceTime: 80,
@@ -129,12 +216,8 @@ describe('HighlightDirective ', () => {
       host = createHost(undefined, {
         hostProps: { style: config },
       });
-      host.dispatchMouseEvent(host.element, 'mouseenter');
-      host.tick(config.debounceTime);
-      expect(host.element).not.toHaveClass('hc-hover-background');
-      expect(host.element).not.toHaveClass('hc-hover-shadow');
-      expect(host.element).not.toHaveClass('hc-hover-outline');
-    }));
+      checkEffect(config);
+    });
 
     for (const value of TEST_STYLES) {
       it('should add correct class on mousein and remove it on mouseout ', () => {
@@ -145,9 +228,29 @@ describe('HighlightDirective ', () => {
         host = createHost(undefined, {
           hostProps: { style: config },
         });
-        checkEffectApplied(config);
+        checkEffect(config);
       });
     }
+
+    it('should implement hover style change after component initialization', () => {
+      const config: HighlightStyleConfig = {
+        hover: 'background',
+        debounceTime: 80,
+      };
+      host = createHost(undefined, {
+        hostProps: { style: config },
+      });
+
+      checkEffect(config);
+
+      config.hover = 'none';
+      host.component.highlightStyle = config;
+      checkEffect(config);
+
+      config.hover = 'shadow';
+      host.component.highlightStyle = config;
+      checkEffect(config);
+    });
   });
 
   describe('focus', () => {
@@ -180,19 +283,15 @@ describe('HighlightDirective ', () => {
       expect(host.element).not.toHaveClass('hc-focus-background');
     }));
 
-    it('should default to none if no style is provided', fakeAsync(() => {
+    it('should default to none if no style is provided', () => {
       const config: HighlightStyleConfig = {
         debounceTime: 80,
       };
       host = createHost(undefined, {
         hostProps: { style: config },
       });
-      host.dispatchMouseEvent(host.element, 'focusin');
-      host.tick(config.debounceTime);
-      expect(host.element).not.toHaveClass('hc-focus-background');
-      expect(host.element).not.toHaveClass('hc-focus-shadow');
-      expect(host.element).not.toHaveClass('hc-focus-outline');
-    }));
+      checkEffect(config);
+    });
 
     it('should use 50ms as a default debounce time if none is provided', () => {
       const config: HighlightStyleConfig = {
@@ -201,10 +300,10 @@ describe('HighlightDirective ', () => {
       host = createHost(undefined, {
         hostProps: { style: config },
       });
-      checkEffectApplied({ ...config, debounceTime: 50 });
+      checkEffect({ ...config, debounceTime: 50 });
     });
 
-    it('should not apply the effect if the style is none', fakeAsync(() => {
+    it('should not apply the effect if the style is none', () => {
       const config: HighlightStyleConfig = {
         focus: 'none',
         debounceTime: 80,
@@ -212,12 +311,8 @@ describe('HighlightDirective ', () => {
       host = createHost(undefined, {
         hostProps: { style: config },
       });
-      host.dispatchMouseEvent(host.element, 'focusin');
-      host.tick(config.debounceTime);
-      expect(host.element).not.toHaveClass('hc-focus-background');
-      expect(host.element).not.toHaveClass('hc-focus-shadow');
-      expect(host.element).not.toHaveClass('hc-focus-outline');
-    }));
+      checkEffect(config);
+    });
 
     for (const value of TEST_STYLES) {
       it('should add correct class on focusin and remove it on focusout ', () => {
@@ -228,7 +323,7 @@ describe('HighlightDirective ', () => {
         host = createHost(undefined, {
           hostProps: { style: config },
         });
-        checkEffectApplied(config);
+        checkEffect(config);
       });
     }
 
@@ -258,5 +353,25 @@ describe('HighlightDirective ', () => {
       expect(host.element).not.toHaveClass(focusClass);
       expect(host.element).toHaveClass(hoverClass);
     }));
+
+    it('should implement focus style change after component initialization', () => {
+      const config: HighlightStyleConfig = {
+        focus: 'background',
+        debounceTime: 80,
+      };
+      host = createHost(undefined, {
+        hostProps: { style: config },
+      });
+
+      checkEffect(config);
+
+      config.focus = 'none';
+      host.component.highlightStyle = config;
+      checkEffect(config);
+
+      config.focus = 'outline';
+      host.component.highlightStyle = config;
+      checkEffect(config);
+    });
   });
 });

@@ -3,21 +3,16 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import * as _ from 'lodash';
-
 import {
   Directive,
   ElementRef,
   HostListener,
   Input,
   Renderer2,
-  OnInit,
-  OnChanges,
-  SimpleChanges,
   OnDestroy,
 } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { debounceTime, takeUntil } from 'rxjs/operators';
+import { BehaviorSubject, Subscription, Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 export type HighlightStyle = 'shadow' | 'outline' | 'background' | 'none';
 export type HighlightStyleConfig = {
@@ -29,99 +24,121 @@ export type HighlightStyleConfig = {
 @Directive({
   selector: '[hcHighlight]',
 })
-export class HighlightDirective implements OnInit, OnChanges, OnDestroy {
-  @Input('hcHighlight') highlightStyle: HighlightStyleConfig;
+export class HighlightDirective implements OnDestroy {
+  get highlightStyle(): HighlightStyleConfig {
+    return this._style;
+  }
+  @Input('hcHighlight') set highlightStyle(value: HighlightStyleConfig) {
+    this._updateStyleConfig(value);
+  }
 
-  // Automatic unsubscription when the component is destroyed
-  private _ngUnsubscribe$: Subject<boolean> = new Subject();
-  private _style: HighlightStyleConfig = {
+  readonly DEFAULT_CONFIG: Readonly<HighlightStyleConfig> = {
     hover: 'none',
     focus: 'none',
     debounceTime: 50,
   };
 
-  private _hovered$ = new BehaviorSubject<boolean>(false);
-  private _isHovered: boolean;
+  // Automatic unsubscription when the component is destroyed
+  private _style: HighlightStyleConfig = { ...this.DEFAULT_CONFIG };
 
+  private _hovered$ = new BehaviorSubject<boolean>(false);
+  private _isHovered = false;
   private _focused$ = new BehaviorSubject<boolean>(false);
-  private _isFocused: boolean;
+  private _isFocused = false;
+
+  private _subscriptions: { hover: Subscription; focus: Subscription } = {
+    hover: undefined,
+    focus: undefined,
+  };
 
   constructor(private _renderer: Renderer2, private _el: ElementRef) {}
 
-  ngOnInit(): void {
-    this._updateStyleConfig();
-
-    this._hovered$
-      .pipe(
-        debounceTime(this._style.debounceTime),
-        takeUntil(this._ngUnsubscribe$)
-      )
-      .subscribe((status) => {
-        if (this._isHovered != status) {
-          this._isHovered = status;
-          // Do not apply the hover effect if the element is focused
-          if (this._isHovered && !this._isFocused) this._applyEffect('hover');
-          else this._removeEffect('hover');
-        }
-      });
-
-    this._focused$
-      .pipe(
-        debounceTime(this._style.debounceTime),
-        takeUntil(this._ngUnsubscribe$)
-      )
-      .subscribe((status) => {
-        if (this._isFocused != status) {
-          this._isFocused = status;
-          if (this._isFocused) {
-            this._applyEffect('focus');
-            // If the element is hovered, then remove the hover effect
-            if (this._isHovered) this._removeEffect('hover');
-          } else {
-            this._removeEffect('focus');
-            // If the element is hovered, then apply the hover effect
-            if (this._isHovered) this._applyEffect('hover');
-          }
-        }
-      });
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['highlightStyle']) {
-      this._updateStyleConfig();
-    }
-  }
-
   ngOnDestroy(): void {
-    // The emitted value is not important and not to be used, but is here
-    // simply because it does not make sense to call next() with no value...
-    this._ngUnsubscribe$.next(true);
-    // Security measure to avoid memory leaks, as calling complete on
-    // the source stream will remove the references to all the subscribed
-    // observers, allowing the garbage collector to eventually dispose any
-    // non unsubscribed Subscription instance.
-    this._ngUnsubscribe$.complete();
-  }
-
-  private _updateStyleConfig() {
-    if (this.highlightStyle) _.assign(this._style, this.highlightStyle);
-    if (this._style.debounceTime < 0) this._style.debounceTime = 0;
+    this._stopFocusSubscription();
+    this._startHoverSubscription();
   }
 
   @HostListener('mouseenter') onMouseEnter(): void {
-    this._hovered$.next(true);
+    this._hovered$?.next(true);
   }
 
   @HostListener('mouseleave') onMouseLeave(): void {
-    this._hovered$.next(false);
+    this._hovered$?.next(false);
   }
 
   @HostListener('focusin') onFocusIn(): void {
-    this._focused$.next(true);
+    this._focused$?.next(true);
   }
 
   @HostListener('focusout') onFocusOut(): void {
-    this._focused$.next(false);
+    this._focused$?.next(false);
+  }
+
+  private _updateStyleConfig(value: HighlightStyleConfig) {
+    // Merge the provided config with the default config
+    value && (this._style = { ...this.DEFAULT_CONFIG, ...value });
+    if (this._style.debounceTime < 0) this._style.debounceTime = 0;
+
+    // Start observing if we're not already doing that
+    if (this._style.hover != 'none' && !this._subscriptions.hover) {
+      this._startHoverSubscription();
+    }
+    if (this._style.hover == 'none' && this._subscriptions.hover) {
+      this._stopHoverSubscription();
+    }
+
+    // Start observing if we're not already doing that
+    if (this._style.focus != 'none' && !this._subscriptions.focus) {
+      this._startFocusSubscription();
+    }
+    if (this._style.focus == 'none' && this._subscriptions.focus) {
+      this._stopFocusSubscription();
+    }
+
+    if (this._style.focus != 'none') {
+      this._startFocusSubscription();
+    }
+  }
+
+  private _startHoverSubscription() {
+    this._subscriptions.hover = this._hovered$
+      .pipe(debounceTime(this._style.debounceTime))
+      .subscribe((status) => {
+        this._isHovered = status;
+        // Do not apply the hover effect if the element is focused
+        if (this._isHovered && !this._isFocused) this._applyEffect('hover');
+        else this._removeEffect('hover');
+      });
+    this._hovered$.next(this._isHovered);
+  }
+
+  private _stopHoverSubscription() {
+    this._subscriptions.hover?.unsubscribe();
+    this._subscriptions.hover = undefined;
+  }
+
+  private _startFocusSubscription() {
+    this._subscriptions.focus = this._focused$
+      .pipe(debounceTime(this._style.debounceTime))
+      .subscribe((status) => {
+        this._isFocused = status;
+        if (this._isFocused) {
+          this._applyEffect('focus');
+          // If the element is hovered, then remove the hover effect
+          if (this._isHovered) this._removeEffect('hover');
+        } else {
+          this._removeEffect('focus');
+          // If the element is hovered, then apply the hover effect
+          if (this._isHovered) this._applyEffect('hover');
+        }
+      });
+
+    this._focused$.next(this._isFocused);
+  }
+
+  private _stopFocusSubscription() {
+    this._subscriptions.focus?.unsubscribe();
+    this._subscriptions.focus = undefined;
   }
 
   private _applyEffect(effect: 'hover' | 'focus') {
