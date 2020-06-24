@@ -19,10 +19,10 @@ import {
 import { BehaviorSubject, Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 
-type HighlighStyle = 'shadow' | 'outline' | 'background' | 'none';
+export type HighlightStyle = 'shadow' | 'outline' | 'background' | 'none';
 export type HighlightStyleConfig = {
-  hover?: HighlighStyle;
-  focus?: HighlighStyle;
+  hover?: HighlightStyle;
+  focus?: HighlightStyle;
   debounceTime?: number;
 };
 

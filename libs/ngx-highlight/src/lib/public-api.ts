@@ -3,6 +3,9 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-export { HighlightDirective } from './highlight.directive';
-export { HighlightStyleConfig } from './highlight.directive';
+export {
+  HighlightStyle,
+  HighlightStyleConfig,
+  HighlightDirective,
+} from './highlight.directive';
 export { HighlightModule } from './highlight.module';
