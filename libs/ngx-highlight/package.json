@@ -1,6 +1,6 @@
 {
   "name": "@npcz/ngx-highlight",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Angular directive to highlight an element on hover or focus",
   "license": "BSD-3-Clause",
   "author": "Abdessattar Sassi (https://github.com/abdes)",
