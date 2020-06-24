@@ -1,3 +1,8 @@
+// Copyright (c) 2019-2020 The Authors
+// This file is part of https://github.com/abdes/happy-coding
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
 import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
