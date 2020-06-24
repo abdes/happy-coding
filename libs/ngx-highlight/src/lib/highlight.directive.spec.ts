@@ -250,6 +250,10 @@ describe('HighlightDirective ', () => {
       config.hover = 'shadow';
       host.component.highlightStyle = config;
       checkEffect(config);
+
+      config.debounceTime = 40;
+      host.component.highlightStyle = config;
+      checkEffect(config);
     });
   });
 
@@ -370,6 +374,10 @@ describe('HighlightDirective ', () => {
       checkEffect(config);
 
       config.focus = 'outline';
+      host.component.highlightStyle = config;
+      checkEffect(config);
+
+      config.debounceTime = 40;
       host.component.highlightStyle = config;
       checkEffect(config);
     });

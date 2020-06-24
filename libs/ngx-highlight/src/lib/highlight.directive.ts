@@ -11,7 +11,7 @@ import {
   Renderer2,
   OnDestroy,
 } from '@angular/core';
-import { BehaviorSubject, Subscription, Subject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 export type HighlightStyle = 'shadow' | 'outline' | 'background' | 'none';
@@ -75,11 +75,28 @@ export class HighlightDirective implements OnDestroy {
   }
 
   private _updateStyleConfig(value: HighlightStyleConfig) {
-    // Merge the provided config with the default config
-    value && (this._style = { ...this.DEFAULT_CONFIG, ...value });
-    if (this._style.debounceTime < 0) this._style.debounceTime = 0;
+    // Adjust debounceTime if it is negative
+    let adjustedDebounceTime = this.DEFAULT_CONFIG.debounceTime;
+    if (value?.debounceTime) {
+      adjustedDebounceTime = value.debounceTime > 0 ? value.debounceTime : 0;
+    }
 
-    // Start observing if we're not already doing that
+    // When the debounceTime changes, always stop the subscription
+    // to restart it again
+    if (this._style.debounceTime != adjustedDebounceTime) {
+      this._stopFocusSubscription();
+      this._stopHoverSubscription();
+    }
+
+    // Merge the provided config with the default config
+    value &&
+      (this._style = {
+        ...this.DEFAULT_CONFIG,
+        ...value,
+        debounceTime: adjustedDebounceTime,
+      });
+
+    // Hover: Start observing if we're not already doing that
     if (this._style.hover != 'none' && !this._subscriptions.hover) {
       this._startHoverSubscription();
     }
@@ -87,16 +104,12 @@ export class HighlightDirective implements OnDestroy {
       this._stopHoverSubscription();
     }
 
-    // Start observing if we're not already doing that
+    // Focus: Start observing if we're not already doing that
     if (this._style.focus != 'none' && !this._subscriptions.focus) {
       this._startFocusSubscription();
     }
     if (this._style.focus == 'none' && this._subscriptions.focus) {
       this._stopFocusSubscription();
-    }
-
-    if (this._style.focus != 'none') {
-      this._startFocusSubscription();
     }
   }
 
