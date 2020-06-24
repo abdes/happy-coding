@@ -4,6 +4,5 @@
   "assets": ["CHANGELOG.md", "./src/styles/**/*.theme.scss"],
   "lib": {
     "entryFile": "src/index.ts"
-  },
-  "whitelistedNonPeerDependencies": ["lodash"]
+  }
 }
