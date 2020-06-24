@@ -42,9 +42,12 @@ module.exports = {
             sourceTag: 'shared',
             onlyDependOnLibsWithTags: ['shared'],
           },
+          // We allow publishable projects to depend on other publishable
+          // projects, knowing that in reality all imports will be done as if
+          // they were coming from node_modules.
           {
             sourceTag: 'publishable',
-            onlyDependOnLibsWithTags: ['never'],
+            onlyDependOnLibsWithTags: ['publishable'],
           },
         ],
       },
