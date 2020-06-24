@@ -1,3 +1,8 @@
+// Copyright (c) 2019-2020 The Authors
+// This file is part of https://github.com/abdes/happy-coding
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
