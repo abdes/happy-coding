@@ -1,0 +1,16 @@
+<div
+  class="example__container"
+  fxLayout="row"
+  fxLayoutAlign="start center"
+  fxLayoutGap="20px"
+>
+  <button
+    mat-flat-button
+    color="accent"
+    class="example__button"
+    (click)="onClicked()"
+  >
+    Click me
+  </button>
+  <div fxFlex="grow">{{ message }}</div>
+</div>

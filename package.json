@@ -25,7 +25,8 @@
     "update": "ng update @nrwl/workspace",
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "playground": "angular-playground --config ./apps/playground-shared/angular-playground.json --ng-cli-cmd ./node_modules/@nrwl/cli/bin/nx.js"
   },
   "private": true,
   "dependencies": {
@@ -67,6 +68,7 @@
     "@types/node": "~12.12.47",
     "@typescript-eslint/eslint-plugin": "^3.3.0",
     "@typescript-eslint/parser": "^3.3.0",
+    "angular-playground": "^7.0.3",
     "auto-changelog": "^2.1.0",
     "cypress": "^4.8.0",
     "dotenv": "8.2.0",

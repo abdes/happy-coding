@@ -221,6 +221,73 @@
           "style": "scss"
         }
       }
+    },
+    "playground-shared": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/playground-shared",
+      "sourceRoot": "apps/playground-shared/src",
+      "prefix": "hcpg",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/playground-shared",
+            "index": "apps/playground-shared/src/index.html",
+            "main": "apps/playground-shared/src/main.ts",
+            "polyfills": "apps/playground-shared/src/polyfills.ts",
+            "tsConfig": "apps/playground-shared/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "apps/playground-shared/src/favicon.ico",
+              {
+                "glob": "*",
+                "input": "apps/playground-shared/src/assets",
+                "output": "assets"
+              }
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["libs/ngx-highlight/src/styles"]
+            },
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "apps/playground-shared/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "playground-shared:build",
+            "proxyConfig": "apps/playground-shared/proxy.conf.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "eslintConfig": "apps/playground-shared/.eslintrc.js",
+            "tsConfig": [
+              "apps/playground-shared/tsconfig.app.json",
+              "apps/playground-shared/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/playground-shared/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/playground-shared/jest.config.js",
+            "tsConfig": "apps/playground-shared/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/playground-shared/src/test-setup.ts"
+          }
+        }
+      }
     }
   },
   "cli": {

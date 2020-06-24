@@ -31,6 +31,9 @@
     },
     "ngx-search-bar": {
       "tags": ["lib", "publishable", "shared"]
+    },
+    "playground-shared": {
+      "tags": ["app", "web", "client"]
     }
   }
 }

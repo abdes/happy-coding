@@ -1,0 +1,10 @@
+{
+  "sourceRoots": [
+    "./apps/playground-shared/src",
+    "./libs/ngx-highlight/src",
+    "./libs/ngx-search-bar/src"
+  ],
+  "angularCli": {
+    "appName": "playground-shared"
+  }
+}
