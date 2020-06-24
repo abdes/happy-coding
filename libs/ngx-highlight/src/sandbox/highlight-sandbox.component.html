@@ -1,0 +1,87 @@
+<!--
+  ~ Copyright (c) 2019-2020 The Authors
+  ~ This file is part of @npcz/ngx-highlight
+  ~ https://github.com/abdes/happy-coding
+  ~
+  ~ SPDX-License-Identifier: BSD-3-Clause
+  -->
+
+<div class="root__container" fxLayout="row">
+  <div
+    class="config__container"
+    fxLayout="column"
+    fxLayoutAlign="space-between stretch"
+    fxLayoutGap="2em"
+  >
+    <mat-card class="config__section">
+      <mat-slide-toggle [(ngModel)]="withHover" (change)="updateStyle()"
+        ><strong>Hover style</strong>:
+        {{ withHover ? 'defined' : 'undefined' }}</mat-slide-toggle
+      >
+      <mat-radio-group [(ngModel)]="hoverStyle" (change)="updateStyle()">
+        <mat-radio-button
+          class="example-radio-button"
+          *ngFor="let style of styles"
+          [value]="style"
+          [disabled]="!withHover"
+        >
+          {{ style }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </mat-card>
+    <mat-card class="config__section">
+      <mat-slide-toggle [(ngModel)]="withFocus" (change)="updateStyle()"
+        ><strong>Focus style</strong>:
+        {{ withFocus ? 'defined' : 'undefined' }}</mat-slide-toggle
+      >
+      <mat-radio-group [(ngModel)]="focusStyle" (change)="updateStyle()">
+        <mat-radio-button
+          *ngFor="let style of styles"
+          [value]="style"
+          [disabled]="!withFocus"
+        >
+          {{ style }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </mat-card>
+    <mat-card class="config__section">
+      <mat-slide-toggle [(ngModel)]="withDebounceTime" (change)="updateStyle()">
+        {{ withDebounceTime ? 'defined' : 'undefined' }}</mat-slide-toggle
+      >
+      <mat-form-field class="debounce--full-width">
+        <mat-label>Debounce time</mat-label>
+        <input
+          [disabled]="!withDebounceTime"
+          matInput
+          placeholder="50"
+          type="number"
+          [(ngModel)]="debounceTime"
+          (change)="updateStyle()"
+        />
+      </mat-form-field>
+    </mat-card>
+    <mat-card class="config__section">
+      <mat-card-header>
+        <mat-card-title>HighlightStyleConfig</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="config-result__json">
+        <span>{{ JSON.stringify(highlightStyle, null, 2) }}</span>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div
+    #directiveContainer
+    class="directive__container"
+    fxFlex="grow"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    [hcHighlight]="highlightStyle"
+  >
+    <form class="demo__form">
+      <mat-form-field class="demo__input">
+        <mat-label>Favorite food</mat-label>
+        <input matInput placeholder="Ex. Pizza" />
+      </mat-form-field>
+    </form>
+  </div>
+</div>
