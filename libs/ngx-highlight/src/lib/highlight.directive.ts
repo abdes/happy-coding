@@ -52,7 +52,10 @@ export class HighlightDirective implements OnInit, OnChanges, OnDestroy {
     this._updateStyleConfig();
 
     this._hovered$
-      .pipe(debounceTime(50), takeUntil(this._ngUnsubscribe$))
+      .pipe(
+        debounceTime(this._style.debounceTime),
+        takeUntil(this._ngUnsubscribe$)
+      )
       .subscribe((status) => {
         if (this._isHovered != status) {
           this._isHovered = status;
@@ -63,7 +66,10 @@ export class HighlightDirective implements OnInit, OnChanges, OnDestroy {
       });
 
     this._focused$
-      .pipe(debounceTime(50), takeUntil(this._ngUnsubscribe$))
+      .pipe(
+        debounceTime(this._style.debounceTime),
+        takeUntil(this._ngUnsubscribe$)
+      )
       .subscribe((status) => {
         if (this._isFocused != status) {
           this._isFocused = status;
