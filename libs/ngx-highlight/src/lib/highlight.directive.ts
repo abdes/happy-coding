@@ -15,17 +15,52 @@ import {
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
+/**
+ * Possible value for hover/focus highlight style.
+ *
+ * shadow:
+ * adds a thin shadow around the element.
+ *
+ * outline:
+ * adds a thibk, more pronounced shadow around the element. A shadow is used
+ * instead of a border to avoid the element jumping around.
+ *
+ * background:
+ * change the element's background color.
+ *
+ * none:
+ * No highlight effect is applied.
+ */
 export type HighlightStyle = 'shadow' | 'outline' | 'background' | 'none';
+
+/**
+ * Specifies the highlight styles for hover and/or focus.
+ */
 export type HighlightStyleConfig = {
   hover?: HighlightStyle;
   focus?: HighlightStyle;
-  debounceTime?: number;
 };
+
+/**
+ * Default highlight styles: `none` for hover and `none` for focus.
+ */
+export const DEFAULT_STYLE_CONFIG: Readonly<HighlightStyleConfig> = {
+  hover: 'none',
+  focus: 'none',
+};
+
+/**
+ * Default debounce time for mouse/focus events.
+ */
+export const DEFAULT_DEBOUNCE_TIME = 50;
 
 @Directive({
   selector: '[hcHighlight]',
 })
 export class HighlightDirective implements OnDestroy {
+  /**
+   * The currently set highlight styles for the directive.
+   */
   get highlightStyle(): HighlightStyleConfig {
     return this._style;
   }
@@ -33,14 +68,22 @@ export class HighlightDirective implements OnDestroy {
     this._updateStyleConfig(value);
   }
 
-  readonly DEFAULT_CONFIG: Readonly<HighlightStyleConfig> = {
-    hover: 'none',
-    focus: 'none',
-    debounceTime: 50,
-  };
+  /**
+   * The currently set debounce time for the directive.
+   *
+   * Events are debounced to limit the frequency at which hover and/or focus
+   * styles are applied/removed and provide a nicer user experience. A value of
+   * `0` completely disables debouncing.
+   */
+  get hcHighlightDebounce(): number {
+    return this._debounceTime;
+  }
+  @Input() set hcHighlightDebounce(value: number) {
+    this._updateDebounceTime(value);
+  }
 
-  // Automatic unsubscription when the component is destroyed
-  private _style: HighlightStyleConfig = { ...this.DEFAULT_CONFIG };
+  private _style: HighlightStyleConfig = { ...DEFAULT_STYLE_CONFIG };
+  private _debounceTime = DEFAULT_DEBOUNCE_TIME;
 
   private _hovered$ = new BehaviorSubject<boolean>(false);
   private _isHovered = false;
@@ -76,27 +119,15 @@ export class HighlightDirective implements OnDestroy {
   }
 
   private _updateStyleConfig(value: HighlightStyleConfig) {
-    // Always stop the subscriptions on any change to re-evaluate the component
-    // highlight classes using the new config when they are restarted again
-    this._stopHoverSubscription();
-    this._stopFocusSubscription();
-
-    // Adjust debounceTime if it is negative
-    let adjustedDebounceTime = this.DEFAULT_CONFIG.debounceTime;
-    if (value?.debounceTime) {
-      adjustedDebounceTime = value.debounceTime > 0 ? value.debounceTime : 0;
-    }
-
     // Merge the provided config with the default config
     let newStyle: HighlightStyleConfig = {
-      ...this.DEFAULT_CONFIG,
+      ...DEFAULT_STYLE_CONFIG,
     };
     value &&
       (newStyle = {
         ...newStyle,
         ...value,
       });
-    newStyle.debounceTime = adjustedDebounceTime;
 
     // Remove the old effects if the new ones are different,
     // they will be applied again with the new config as appropriate
@@ -124,9 +155,29 @@ export class HighlightDirective implements OnDestroy {
     }
   }
 
+  private _updateDebounceTime(value: number) {
+    // Adjust debounceTime if it is negative
+    let adjustedDebounceTime = DEFAULT_DEBOUNCE_TIME;
+    if (value) {
+      adjustedDebounceTime = value > 0 ? value : 0;
+    }
+
+    if (this._debounceTime != adjustedDebounceTime) {
+      this._debounceTime = adjustedDebounceTime;
+      if (this._subscriptions.hover) {
+        this._stopHoverSubscription();
+        this._startHoverSubscription();
+      }
+      if (this._subscriptions.focus) {
+        this._stopFocusSubscription();
+        this._startFocusSubscription();
+      }
+    }
+  }
+
   private _startHoverSubscription() {
     this._subscriptions.hover = this._hovered$
-      .pipe(debounceTime(this._style.debounceTime))
+      .pipe(debounceTime(this._debounceTime))
       .subscribe((status) => {
         this._isHovered = status;
         // Do not apply the hover effect if the element is focused
@@ -143,7 +194,7 @@ export class HighlightDirective implements OnDestroy {
 
   private _startFocusSubscription() {
     this._subscriptions.focus = this._focused$
-      .pipe(debounceTime(this._style.debounceTime))
+      .pipe(debounceTime(this._debounceTime))
       .subscribe((status) => {
         this._isFocused = status;
         if (this._isFocused) {

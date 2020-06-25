@@ -5,6 +5,8 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
 export {
+  DEFAULT_DEBOUNCE_TIME,
+  DEFAULT_STYLE_CONFIG,
   HighlightStyle,
   HighlightStyleConfig,
   HighlightDirective,
