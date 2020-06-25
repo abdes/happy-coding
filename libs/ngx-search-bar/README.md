@@ -27,7 +27,7 @@ yarn add @npcz/ngx-search-bar
 
 ## Basic Usage
 
-#### 1. Import the `SearchBarModule`
+### 1. Import the `SearchBarModule`
 
 ```ts
 import { BrowserModule } from '@angular/platform-browser';
@@ -46,17 +46,16 @@ import { AppComponent } from './app.component';
 export class AppModule {}
 ```
 
-#### 2. Add the configuration properties to the component
+### 2. Add the configuration properties to the component
 
 Specify the highlighting style you want to be applied by defining a variable in
 the component file of type `HighlightStyleConfig`
 
 ```ts
 type HighlighStyle = 'shadow' | 'outline' | 'background' | 'none';
-export type HighlightStyleConfig = {
+type HighlightStyleConfig = {
   hover?: HighlighStyle;
   focus?: HighlighStyle;
-  debounceTime?: number;
 };
 ```
 
@@ -87,7 +86,7 @@ export class AppComponent {
 }
 ```
 
-#### 3. Include a hc-search-bar component in the template
+### 3. Include a hc-search-bar component in the template
 
 ```html
 <hc-search-bar
