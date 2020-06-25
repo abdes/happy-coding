@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.0.5](https://github.com/abdes/happy-coding/compare/ngx-highlight-ngx-highlight-0.0.4...ngx-highlight-0.0.5)
+
+> 25 June 2020
+
+### Features
+
+- **Breaking change:** feat(ngx-highlight): decouple debounce time from style config [`d42d7de`](https://github.com/abdes/happy-coding/commit/d42d7de362c1ddcaccdccf63a40d4bbac044734d)
+
+  - in normal use of the directive, it is much less likely
+    to reset the debounce time then it is to change the highlight style.
+    Therefore, instead of treating the debounce time as part of the style
+    config, it is more appropriate to treat it separately.
+
+  - default values for style config and for debounce time are now constants
+    exported by the module in the public api. This is cleaner.
+
+### Fixes
+
+- fix(ngx-highlight): style changes need to be applied immediately [`e599794`](https://github.com/abdes/happy-coding/commit/e599794cd54a4c2bcd87c58acfa4b016e365c7a8)
+- fix(ngx-highlight): hover sub not stopped when component destroyed [`fb6b4bf`](https://github.com/abdes/happy-coding/commit/fb6b4bf5a122f4b8bf8581d694da5097779c4018)
+
 ## [0.0.4](https://github.com/abdes/happy-coding/compare/ngx-highlight-ngx-highlight-0.0.3...ngx-highlight-0.0.4)
 
 > 24 June 2020
@@ -34,7 +55,7 @@
 - doc(ngx-highlight): update org to @npcz ([0d5fc62](https://github.com/abdes/happy-coding/commit/0d5fc62))
 - doc(ngx-highlight): update org to @npcz ([c9aee1b](https://github.com/abdes/happy-coding/commit/c9aee1b))
 
-# [0.0.2](https://github.com/abdes/happy-coding/compare/ngx-highlight-ngx-highlight-0.0.1...ngx-highlight-0.0.2)
+## [0.0.2](https://github.com/abdes/happy-coding/compare/ngx-highlight-ngx-highlight-0.0.1...ngx-highlight-0.0.2)
 
 (2020-06-22)
 
