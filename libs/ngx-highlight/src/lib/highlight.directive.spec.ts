@@ -233,7 +233,7 @@ describe('HighlightDirective ', () => {
       });
     }
 
-    it('should implement hover style change after component initialization', () => {
+    it('should implement debounceTime change after component initialization', () => {
       const config: HighlightStyleConfig = {
         hover: 'background',
         debounceTime: 80,
@@ -244,17 +244,87 @@ describe('HighlightDirective ', () => {
 
       checkEffect(config);
 
-      config.hover = 'none';
-      host.component.highlightStyle = config;
-      checkEffect(config);
-
-      config.hover = 'shadow';
-      host.component.highlightStyle = config;
-      checkEffect(config);
-
       config.debounceTime = 40;
       host.component.highlightStyle = config;
       checkEffect(config);
+    });
+
+    describe('style update', () => {
+      it('should update the hover class when component is hovered only', fakeAsync(() => {
+        const config: HighlightStyleConfig = {
+          hover: 'background',
+        };
+        host = createHost(undefined, {
+          hostProps: { style: config },
+        });
+
+        // hover the element and check the style was added
+        host.dispatchMouseEvent(host.element, 'mouseenter');
+        host.tick(host.component.highlightStyle.debounceTime);
+        expect(host.element).toHaveClass('hc-hover-background');
+
+        // Now we change the effect style without the mouse leaving
+        // and check that the class changes as well
+        host.component.highlightStyle = { hover: 'shadow' };
+        host.tick(host.component.highlightStyle.debounceTime);
+        expect(host.element).not.toHaveClass('hc-hover-background');
+        expect(host.element).toHaveClass('hc-hover-shadow');
+
+        // set hover to none and expect no hover classes are added
+        host.component.highlightStyle = { hover: 'none' };
+        host.tick(host.component.highlightStyle.debounceTime);
+        for (const style of TEST_STYLES) {
+          expect(host.element).not.toHaveClass(`hc-hover-${style}`);
+        }
+      }));
+
+      it('should not add a hover class when component not hovered', fakeAsync(() => {
+        const config: HighlightStyleConfig = {
+          hover: 'background',
+        };
+        host = createHost(undefined, {
+          hostProps: { style: config },
+        });
+
+        for (const style of TEST_STYLES) {
+          expect(host.element).not.toHaveClass(`hc-hover-${style}`);
+        }
+
+        // Now we change the effect style without the mouse enetering
+        // and check that the class is not added
+        host.component.highlightStyle = { hover: 'shadow' };
+        host.tick(host.component.highlightStyle.debounceTime);
+        for (const style of TEST_STYLES) {
+          expect(host.element).not.toHaveClass(`hc-hover-${style}`);
+        }
+      }));
+
+      it('should not add a hover class when component is focused with a style', fakeAsync(() => {
+        const config: HighlightStyleConfig = {
+          hover: 'background',
+          focus: 'outline',
+        };
+        host = createHost(undefined, {
+          hostProps: { style: config },
+        });
+
+        // hover the element and check the style was added
+        host.dispatchMouseEvent(host.element, 'mouseenter');
+        host.dispatchMouseEvent(host.element, 'focusin');
+        host.tick(host.component.highlightStyle.debounceTime);
+        expect(host.element).toHaveClass('hc-focus-outline');
+        for (const style of TEST_STYLES) {
+          expect(host.element).not.toHaveClass(`hc-hover-${style}`);
+        }
+
+        // Now we change the effect style without the mouse leaving
+        // and check that the class changes as well
+        host.component.highlightStyle = { hover: 'shadow', focus: 'outline' };
+        host.tick(host.component.highlightStyle.debounceTime);
+        for (const style of TEST_STYLES) {
+          expect(host.element).not.toHaveClass(`hc-hover-${style}`);
+        }
+      }));
     });
   });
 
@@ -359,7 +429,7 @@ describe('HighlightDirective ', () => {
       expect(host.element).toHaveClass(hoverClass);
     }));
 
-    it('should implement focus style change after component initialization', () => {
+    it('should implement debounceTime change after component initialization', () => {
       const config: HighlightStyleConfig = {
         focus: 'background',
         debounceTime: 80,
@@ -370,17 +440,59 @@ describe('HighlightDirective ', () => {
 
       checkEffect(config);
 
-      config.focus = 'none';
-      host.component.highlightStyle = config;
-      checkEffect(config);
-
-      config.focus = 'outline';
-      host.component.highlightStyle = config;
-      checkEffect(config);
-
       config.debounceTime = 40;
       host.component.highlightStyle = config;
       checkEffect(config);
+    });
+
+    describe('style update', () => {
+      it('should update the focus class when component is focused', fakeAsync(() => {
+        const config: HighlightStyleConfig = {
+          focus: 'background',
+        };
+        host = createHost(undefined, {
+          hostProps: { style: config },
+        });
+
+        // hover the element and check the style was added
+        host.dispatchMouseEvent(host.element, 'focusin');
+        host.tick(host.component.highlightStyle.debounceTime);
+        expect(host.element).toHaveClass('hc-focus-background');
+
+        // Now we change the effect style without the focus leaving
+        // and check that the class changes as well
+        host.component.highlightStyle = { focus: 'outline' };
+        host.tick(host.component.highlightStyle.debounceTime);
+        expect(host.element).toHaveClass('hc-focus-outline');
+
+        // set focus to none and expect no focus classes are added
+        host.component.highlightStyle = { focus: 'none' };
+        host.tick(host.component.highlightStyle.debounceTime);
+        for (const style of TEST_STYLES) {
+          expect(host.element).not.toHaveClass(`hc-focus-${style}`);
+        }
+      }));
+
+      it('should not add a focus class when component not focused', fakeAsync(() => {
+        const config: HighlightStyleConfig = {
+          focus: 'background',
+        };
+        host = createHost(undefined, {
+          hostProps: { style: config },
+        });
+
+        for (const style of TEST_STYLES) {
+          expect(host.element).not.toHaveClass(`hc-focus-${style}`);
+        }
+
+        // Now we change the effect style without the focus in
+        // and check that the class is not added
+        host.component.highlightStyle = { focus: 'shadow' };
+        host.tick(host.component.highlightStyle.debounceTime);
+        for (const style of TEST_STYLES) {
+          expect(host.element).not.toHaveClass(`hc-focus-${style}`);
+        }
+      }));
     });
   });
 });

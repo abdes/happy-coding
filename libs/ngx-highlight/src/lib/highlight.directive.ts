@@ -60,57 +60,67 @@ export class HighlightDirective implements OnDestroy {
   }
 
   @HostListener('mouseenter') onMouseEnter(): void {
-    this._hovered$?.next(true);
+    this._hovered$.next(true);
   }
 
   @HostListener('mouseleave') onMouseLeave(): void {
-    this._hovered$?.next(false);
+    this._hovered$.next(false);
   }
 
   @HostListener('focusin') onFocusIn(): void {
-    this._focused$?.next(true);
+    this._focused$.next(true);
   }
 
   @HostListener('focusout') onFocusOut(): void {
-    this._focused$?.next(false);
+    this._focused$.next(false);
   }
 
   private _updateStyleConfig(value: HighlightStyleConfig) {
+    // Always stop the subscriptions on any change to re-evaluate the component
+    // highlight classes using the new config when they are restarted again
+    this._stopHoverSubscription();
+    this._stopFocusSubscription();
+
     // Adjust debounceTime if it is negative
     let adjustedDebounceTime = this.DEFAULT_CONFIG.debounceTime;
     if (value?.debounceTime) {
       adjustedDebounceTime = value.debounceTime > 0 ? value.debounceTime : 0;
     }
 
-    // When the debounceTime changes, always stop the subscription
-    // to restart it again
-    if (this._style.debounceTime != adjustedDebounceTime) {
-      this._stopFocusSubscription();
-      this._stopHoverSubscription();
-    }
-
     // Merge the provided config with the default config
+    let newStyle: HighlightStyleConfig = {
+      ...this.DEFAULT_CONFIG,
+    };
     value &&
-      (this._style = {
-        ...this.DEFAULT_CONFIG,
+      (newStyle = {
+        ...newStyle,
         ...value,
-        debounceTime: adjustedDebounceTime,
       });
+    newStyle.debounceTime = adjustedDebounceTime;
 
-    // Hover: Start observing if we're not already doing that
-    if (this._style.hover != 'none' && !this._subscriptions.hover) {
+    // Remove the old effects if the new ones are different,
+    // they will be applied again with the new config as appropriate
+    if (newStyle.hover != this._style.hover) this._removeEffect('hover');
+    if (newStyle.focus != this._style.focus) this._removeEffect('focus');
+
+    // Switch the style config to the new one and restart the subscriptions as
+    // appropriate
+    this._style = newStyle;
+
+    // Hover
+    if (this._style.hover != 'none') {
       this._startHoverSubscription();
-    }
-    if (this._style.hover == 'none' && this._subscriptions.hover) {
-      this._stopHoverSubscription();
+    } else {
+      // otherwise, just reset the current hover state
+      this._isHovered = false;
     }
 
-    // Focus: Start observing if we're not already doing that
-    if (this._style.focus != 'none' && !this._subscriptions.focus) {
+    // Focus
+    if (this._style.focus != 'none') {
       this._startFocusSubscription();
-    }
-    if (this._style.focus == 'none' && this._subscriptions.focus) {
-      this._stopFocusSubscription();
+    } else {
+      // otherwise, just reset the current focus state
+      this._isFocused = false;
     }
   }
 
@@ -156,46 +166,18 @@ export class HighlightDirective implements OnDestroy {
   }
 
   private _applyEffect(effect: 'hover' | 'focus') {
-    switch (this._style[effect]) {
-      case 'shadow':
-        this._renderer.addClass(this._el.nativeElement, `hc-${effect}-shadow`);
-        break;
-      case 'outline':
-        this._renderer.addClass(this._el.nativeElement, `hc-${effect}-outline`);
-        break;
-      case 'background':
-        this._renderer.addClass(
-          this._el.nativeElement,
-          `hc-${effect}-background`
-        );
-        break;
-      // Default is 'none'
-      default:
-    }
+    const style = this._style[effect];
+    console.assert(style != 'none');
+    this._renderer.addClass(this._el.nativeElement, `hc-${effect}-${style}`);
   }
 
   private _removeEffect(effect: 'hover' | 'focus') {
-    switch (this._style[effect]) {
-      case 'shadow':
-        this._renderer.removeClass(
-          this._el.nativeElement,
-          `hc-${effect}-shadow`
-        );
-        break;
-      case 'outline':
-        this._renderer.removeClass(
-          this._el.nativeElement,
-          `hc-${effect}-outline`
-        );
-        break;
-      case 'background':
-        this._renderer.removeClass(
-          this._el.nativeElement,
-          `hc-${effect}-background`
-        );
-        break;
-      // Default is 'none'
-      default:
+    const style = this._style[effect];
+    if (style != 'none') {
+      this._renderer.removeClass(
+        this._el.nativeElement,
+        `hc-${effect}-${style}`
+      );
     }
   }
 }
