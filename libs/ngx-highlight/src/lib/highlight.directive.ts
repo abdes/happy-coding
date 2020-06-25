@@ -56,7 +56,7 @@ export class HighlightDirective implements OnDestroy {
 
   ngOnDestroy(): void {
     this._stopFocusSubscription();
-    this._startHoverSubscription();
+    this._stopHoverSubscription();
   }
 
   @HostListener('mouseenter') onMouseEnter(): void {
