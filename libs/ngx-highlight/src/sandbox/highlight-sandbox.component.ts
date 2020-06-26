@@ -4,7 +4,7 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 
 import {
   HighlightStyle,
@@ -17,7 +17,7 @@ import {
   templateUrl: './highlight-sandbox.component.html',
   styleUrls: ['./highlight-sandbox.component.scss'],
 })
-export class HighlightSandboxComponent implements OnInit {
+export class HighlightSandboxComponent implements AfterViewInit {
   @ViewChild(HighlightDirective) highlight: HighlightDirective;
 
   JSON = JSON;
@@ -42,21 +42,17 @@ export class HighlightSandboxComponent implements OnInit {
   highlightStyle: HighlightStyleConfig = {
     hover: this.hoverStyle,
     focus: this.focusStyle,
-    debounceTime: this.debounceTime,
   };
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.updateStyle();
   }
 
   updateStyle(): void {
-    this.highlightStyle = {};
     if (this.withDebounceTime) {
-      this.highlightStyle = {
-        ...this.highlightStyle,
-        debounceTime: this.debounceTime,
-      };
+      this.highlight.hcHighlightDebounce = this.debounceTime;
     }
+    this.highlightStyle = {};
     if (this.withHover) {
       this.highlightStyle = {
         ...this.highlightStyle,
