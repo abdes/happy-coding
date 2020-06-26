@@ -139,7 +139,9 @@ export class HighlightDirective implements OnDestroy {
     this._style = newStyle;
 
     // Hover
-    if (this._style.hover != 'none') {
+    // TODO: this is bugged - decouple style from subscription activity
+    // think when element is already hovered and style is changed programmatically
+    if (this._style.hover != 'none' && !this._subscriptions.hover) {
       this._startHoverSubscription();
     } else {
       // otherwise, just reset the current hover state
@@ -147,7 +149,8 @@ export class HighlightDirective implements OnDestroy {
     }
 
     // Focus
-    if (this._style.focus != 'none') {
+    // TODO: this is bugged - decouple style from subscription activity
+    if (this._style.focus != 'none' && !this._subscriptions.focus) {
       this._startFocusSubscription();
     } else {
       // otherwise, just reset the current focus state
@@ -176,6 +179,7 @@ export class HighlightDirective implements OnDestroy {
   }
 
   private _startHoverSubscription() {
+    this._hovered$.next(this._isHovered);
     this._subscriptions.hover = this._hovered$
       .pipe(debounceTime(this._debounceTime))
       .subscribe((status) => {
@@ -184,7 +188,6 @@ export class HighlightDirective implements OnDestroy {
         if (this._isHovered && !this._isFocused) this._applyEffect('hover');
         else this._removeEffect('hover');
       });
-    this._hovered$.next(this._isHovered);
   }
 
   private _stopHoverSubscription() {
@@ -193,6 +196,7 @@ export class HighlightDirective implements OnDestroy {
   }
 
   private _startFocusSubscription() {
+    this._focused$.next(this._isFocused);
     this._subscriptions.focus = this._focused$
       .pipe(debounceTime(this._debounceTime))
       .subscribe((status) => {
@@ -207,8 +211,6 @@ export class HighlightDirective implements OnDestroy {
           if (this._isHovered) this._applyEffect('hover');
         }
       });
-
-    this._focused$.next(this._isFocused);
   }
 
   private _stopFocusSubscription() {
