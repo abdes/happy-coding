@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.6](https://github.com/abdes/happy-coding/compare/ngx-highlight-ngx-highlight-0.0.5...ngx-highlight-0.0.6)
+
+> 27 June 2020
+
+### Fixes
+
+- fix(ngx-highlight): coordination between hover and focus effects [`04c1e10`](https://github.com/abdes/happy-coding/commit/04c1e109d002882b9486c0482a89daa00b5c23c1)
+- fix(ngx-highlight): do not start the subscription multiple times on style changes [`42dd48f`](https://github.com/abdes/happy-coding/commit/42dd48feba06a91b3ea9f216ce3d19edca101b6f)
+
+### Dependencies
+
+- deps(ngx-highlight): move tslib to direct dependency [`7a5e7fd`](https://github.com/abdes/happy-coding/commit/7a5e7fd0c2173ef22f8639f7d0e86773f93ae528)
+
+  _As per the [new recommendation](https://angular.io/guide/migration-update-libraries-tslib#why-is-this-migration-necessary) and in preparation for angular v10_
+
 ## [0.0.5](https://github.com/abdes/happy-coding/compare/ngx-highlight-ngx-highlight-0.0.4...ngx-highlight-0.0.5)
 
 > 25 June 2020
