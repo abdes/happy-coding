@@ -19,4 +19,7 @@ module.exports = _.merge({}, workspaceConfig, {
       { type: 'element', prefix: 'exmp', style: 'kebab-case' },
     ],
   },
+  parserOptions: {
+    project: ['apps/example-e2e/tsconfig.e2e.json'],
+  },
 });

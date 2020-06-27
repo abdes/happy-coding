@@ -19,4 +19,10 @@ module.exports = _.merge({}, workspaceConfig, {
       { type: 'element', prefix: 'hc', style: 'kebab-case' },
     ],
   },
+  parserOptions: {
+    project: [
+      'libs/ngx-highlight/tsconfig.lib.json',
+      'libs/ngx-highlight/tsconfig.spec.json',
+    ],
+  },
 });

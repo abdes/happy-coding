@@ -19,4 +19,10 @@ module.exports = _.merge({}, workspaceConfig, {
       { type: 'element', prefix: 'hcpg', style: 'kebab-case' },
     ],
   },
+  parserOptions: {
+    project: [
+      'apps/playground-shared/tsconfig.app.json',
+      'apps/playground-shared/tsconfig.spec.json',
+    ],
+  },
 });

@@ -19,4 +19,10 @@ module.exports = _.merge({}, workspaceConfig, {
       { type: 'element', prefix: 'exmp', style: 'kebab-case' },
     ],
   },
+  parserOptions: {
+    project: [
+      'apps/example/tsconfig.app.json',
+      'apps/example/tsconfig.spec.json',
+    ],
+  },
 });
