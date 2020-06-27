@@ -62,7 +62,9 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   searchQuery = '';
 
-  private _searchForm = this._fb.group({
+  // Public because of use in the template, but not intended to be used outside
+  // of this component
+  _searchForm = this._fb.group({
     searchInput: null,
   });
 
