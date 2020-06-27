@@ -12,7 +12,7 @@ import {
   Renderer2,
   OnDestroy,
 } from '@angular/core';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 /**
@@ -22,7 +22,7 @@ import { debounceTime } from 'rxjs/operators';
  * adds a thin shadow around the element.
  *
  * outline:
- * adds a thibk, more pronounced shadow around the element. A shadow is used
+ * adds a thick, more pronounced shadow around the element. A shadow is used
  * instead of a border to avoid the element jumping around.
  *
  * background:
@@ -85,9 +85,16 @@ export class HighlightDirective implements OnDestroy {
   private _style: HighlightStyleConfig = { ...DEFAULT_STYLE_CONFIG };
   private _debounceTime = DEFAULT_DEBOUNCE_TIME;
 
-  private _hovered$ = new BehaviorSubject<boolean>(false);
+  // We are only interested in the event. The value of the subject is not used.
+  private _hovered$ = new Subject<never>();
+  // This is the hover state that can be checked when the _hovered$ subject
+  // emits
   private _isHovered = false;
-  private _focused$ = new BehaviorSubject<boolean>(false);
+
+  // We are only interested in the event. The value of the subject is not used.
+  private _focused$ = new Subject<never>();
+  // This is the focus state that can be checked when the _hovered$ subject
+  // emits
   private _isFocused = false;
 
   private _subscriptions: { hover: Subscription; focus: Subscription } = {
@@ -103,19 +110,23 @@ export class HighlightDirective implements OnDestroy {
   }
 
   @HostListener('mouseenter') onMouseEnter(): void {
-    this._hovered$.next(true);
+    this._isHovered = true;
+    this._hovered$.next();
   }
 
   @HostListener('mouseleave') onMouseLeave(): void {
-    this._hovered$.next(false);
+    this._isHovered = false;
+    this._hovered$.next();
   }
 
   @HostListener('focusin') onFocusIn(): void {
-    this._focused$.next(true);
+    this._isFocused = true;
+    this._focused$.next();
   }
 
   @HostListener('focusout') onFocusOut(): void {
-    this._focused$.next(false);
+    this._isFocused = false;
+    this._focused$.next();
   }
 
   private _updateStyleConfig(value: HighlightStyleConfig) {
@@ -138,23 +149,31 @@ export class HighlightDirective implements OnDestroy {
     // appropriate
     this._style = newStyle;
 
-    // Hover
-    // TODO: this is bugged - decouple style from subscription activity
-    // think when element is already hovered and style is changed programmatically
-    if (this._style.hover != 'none' && !this._subscriptions.hover) {
-      this._startHoverSubscription();
+    // If the new style is 'none', stop the subscription
+    if (newStyle.hover == 'none') {
+      this._stopHoverSubscription();
+      this._removeEffect('hover');
     } else {
-      // otherwise, just reset the current hover state
-      this._isHovered = false;
+      // Start the subscription if it has not been started already
+      if (!this._subscriptions.hover) {
+        this._startHoverSubscription();
+      }
+      this._hovered$.next();
     }
 
-    // Focus
-    // TODO: this is bugged - decouple style from subscription activity
-    if (this._style.focus != 'none' && !this._subscriptions.focus) {
-      this._startFocusSubscription();
+    if (newStyle.focus == 'none') {
+      this._stopFocusSubscription();
+      this._removeEffect('focus');
+      // Restore the hover effect if the component is hovered
+      if (this._isHovered) {
+        this._applyEffect('hover');
+      }
     } else {
-      // otherwise, just reset the current focus state
-      this._isFocused = false;
+      // Start the subscription if it has not been started already
+      if (!this._subscriptions.focus) {
+        this._startFocusSubscription();
+      }
+      this._focused$.next();
     }
   }
 
@@ -179,14 +198,18 @@ export class HighlightDirective implements OnDestroy {
   }
 
   private _startHoverSubscription() {
-    this._hovered$.next(this._isHovered);
     this._subscriptions.hover = this._hovered$
       .pipe(debounceTime(this._debounceTime))
-      .subscribe((status) => {
-        this._isHovered = status;
-        // Do not apply the hover effect if the element is focused
-        if (this._isHovered && !this._isFocused) this._applyEffect('hover');
-        else this._removeEffect('hover');
+      .subscribe(() => {
+        // Do not manipulate the hover effect if the host is focused and the
+        // focus style is not `none`
+        if (!this._isFocused || this._style.focus == 'none') {
+          if (this._isHovered) {
+            this._applyEffect('hover');
+          } else {
+            this._removeEffect('hover');
+          }
+        }
       });
   }
 
@@ -196,18 +219,17 @@ export class HighlightDirective implements OnDestroy {
   }
 
   private _startFocusSubscription() {
-    this._focused$.next(this._isFocused);
     this._subscriptions.focus = this._focused$
       .pipe(debounceTime(this._debounceTime))
-      .subscribe((status) => {
-        this._isFocused = status;
+      .subscribe(() => {
         if (this._isFocused) {
           this._applyEffect('focus');
-          // If the element is hovered, then remove the hover effect
-          if (this._isHovered) this._removeEffect('hover');
+          // If the host is hovered, then remove the hover effect
+          if (this._isHovered && this._style.focus != 'none')
+            this._removeEffect('hover');
         } else {
           this._removeEffect('focus');
-          // If the element is hovered, then apply the hover effect
+          // If the host is hovered, then apply the hover effect
           if (this._isHovered) this._applyEffect('hover');
         }
       });
@@ -220,8 +242,9 @@ export class HighlightDirective implements OnDestroy {
 
   private _applyEffect(effect: 'hover' | 'focus') {
     const style = this._style[effect];
-    console.assert(style != 'none');
-    this._renderer.addClass(this._el.nativeElement, `hc-${effect}-${style}`);
+    if (style != 'none') {
+      this._renderer.addClass(this._el.nativeElement, `hc-${effect}-${style}`);
+    }
   }
 
   private _removeEffect(effect: 'hover' | 'focus') {
