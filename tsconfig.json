@@ -1,24 +1,39 @@
+/*
+  This is a "Solution Style" tsconfig.json file, and is used by editors and
+  TypeScript’s language server to improve development experience.
+  It is not intended to be used to perform a compilation.
+
+  To learn more see: https://angular.io/config/solution-tsconfig.
+*/
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "rootDir": ".",
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "target": "es2015",
-    "module": "esnext",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2017", "dom"],
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "baseUrl": ".",
-    "paths": {
-      "@npcz/ngx-highlight": ["libs/ngx-highlight/src/index.ts"],
-      "@npcz/ngx-search-bar": ["libs/ngx-search-bar/src/index.ts"]
+  "files": [],
+  "references": [
+    {
+      "path": "./apps/example/tsconfig.app.json"
+    },
+    {
+      "path": "./apps/example/tsconfig.spec.json"
+    },
+    {
+      "path": "./apps/example-e2e/tsconfig.e2e.json"
+    },
+    {
+      "path": "./libs/ngx-highlight/tsconfig.lib.json"
+    },
+    {
+      "path": "./libs/ngx-highlight/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/ngx-search-bar/tsconfig.lib.json"
+    },
+    {
+      "path": "./libs/ngx-search-bar/tsconfig.spec.json"
+    },
+    {
+      "path": "./apps/playground-shared/tsconfig.app.json"
+    },
+    {
+      "path": "./apps/playground-shared/tsconfig.spec.json"
     }
-  },
-  "exclude": ["node_modules", "tmp"]
+  ]
 }

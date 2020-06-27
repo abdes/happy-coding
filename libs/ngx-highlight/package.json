@@ -11,11 +11,11 @@
     "angular, directive, hover, focus"
   ],
   "peerDependencies": {
-    "@angular/common": "^9.1.11",
-    "@angular/core": "^9.1.11",
+    "@angular/common": "^10.0.1",
+    "@angular/core": "^10.0.1",
     "rxjs": "^6.5.5"
   },
   "dependencies": {
-    "tslib": "^1.10.0"
+    "tslib": "^2.0.0"
   }
 }
