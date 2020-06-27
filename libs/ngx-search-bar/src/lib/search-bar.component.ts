@@ -67,7 +67,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   });
 
   // Automatic unsubscription when the component is destroyed
-  private _ngUnsubscribe$: Subject<boolean> = new Subject();
+  // We don't want an emitted value, just the fact of emitting is enough
+  private _ngUnsubscribe$ = new Subject<never>();
 
   constructor(private _fb: FormBuilder) {}
 
@@ -86,13 +87,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // The emitted value is not important and not to be used, but is here
-    // simply because it does not make sense to call next() with no value...
-    this._ngUnsubscribe$.next(true);
-    // Security measure to avoid memory leaks, as calling complete on
-    // the source stream will remove the references to all the subscribed
-    // observers, allowing the garbage collector to eventually dispose any
-    // non unsubscribed Subscription instance.
+    this._ngUnsubscribe$.next();
     this._ngUnsubscribe$.complete();
   }
 
