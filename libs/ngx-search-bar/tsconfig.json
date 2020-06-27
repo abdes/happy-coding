@@ -1,10 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "types": ["node", "jest"],
-    "paths": {
-      "@npcz/ngx-highlight": ["node_modules/@npcz/ngx-highlight"]
-    }
+    "types": ["node", "jest"]
   },
   "include": ["**/*.ts"]
 }
