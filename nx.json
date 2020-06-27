@@ -30,10 +30,12 @@
       "tags": ["lib", "shared", "publishable"]
     },
     "ngx-search-bar": {
-      "tags": ["lib", "publishable", "shared"]
+      "tags": ["lib", "publishable", "shared"],
+      "implicitDependencies": ["ngx-highlight"]
     },
     "playground-shared": {
-      "tags": ["app", "web", "client"]
+      "tags": ["app", "web", "client"],
+      "implicitDependencies": ["ngx-highlight", "ngx-search-bar"]
     }
   }
 }
