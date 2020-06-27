@@ -62,7 +62,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   searchQuery = '';
 
-  _searchForm = this._fb.group({
+  private _searchForm = this._fb.group({
     searchInput: null,
   });
 
