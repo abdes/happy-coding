@@ -1,5 +1,5 @@
 {
-  "npmScope": "happy-coding",
+  "npmScope": "workspace",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": {
