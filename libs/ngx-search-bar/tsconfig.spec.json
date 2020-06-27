@@ -6,5 +6,8 @@
     "types": ["jest", "node"]
   },
   "files": ["src/test-setup.ts"],
-  "include": ["**/*.spec.ts", "**/*.d.ts"]
+  "include": [
+    "libs/ngx-search-bar/src/**/*.spec.ts",
+    "libs/ngx-search-bar/src/**/*.d.ts"
+  ]
 }
