@@ -40,7 +40,19 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   @Input() placeholder: string;
   @Input() clearButton: boolean;
-  @Input() categoryList: string[];
+
+  private _categoryList: string[];
+  get categoryList(): string[] {
+    return this._categoryList;
+  }
+  @Input() set categoryList(value: string[]) {
+    if (value && value.length > 0) this._categoryList = value;
+    else this._categoryList = null;
+    if (!this.category && this._categoryList) {
+      this.category = this._categoryList[0];
+    }
+  }
+
   @Input() category: string;
   @Input() disabled: boolean;
   @Input() highlightStyle: HighlightStyleConfig = {
@@ -75,16 +87,20 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   constructor(private _fb: FormBuilder) {}
 
   ngOnInit(): void {
+    if (this.disabled) this._searchForm.get('searchInput').disable();
+
     this._searchForm
       .get('searchInput')
       .valueChanges.pipe(takeUntil(this._ngUnsubscribe$))
       .subscribe((value) => {
-        this.searchQuery = value;
-        console.debug(`emit changes: ${this.category} / ${this.searchQuery}`);
-        this.changes.emit({
-          category: this.category,
-          query: this.searchQuery,
-        });
+        if (this.searchQuery != value) {
+          this.searchQuery = value;
+          //console.debug(`emit changes: ${this.category} / ${this.searchQuery}`);
+          this.changes.emit({
+            category: this.category,
+            query: this.searchQuery,
+          });
+        }
       });
   }
 
@@ -99,11 +115,12 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   enable(): void {
+    this._searchForm.enable();
     this.disabled = false;
   }
 
   disable(): void {
-    this.clear();
+    this._searchForm.disable();
     this.disabled = true;
   }
 
@@ -112,12 +129,14 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   _onCategorySelected(value: string): void {
-    this.category = value;
-    console.debug(`emit changes: ${this.category} / ${this.searchQuery}`);
-    this.changes.emit({
-      category: this.category,
-      query: this.searchQuery,
-    });
+    if (this.category != value) {
+      this.category = value;
+      // console.debug(`emit changes: ${this.category} / ${this.searchQuery}`);
+      this.changes.emit({
+        category: this.category,
+        query: this.searchQuery,
+      });
+    }
   }
 
   _onCategoryMenuClosed(): void {
@@ -125,7 +144,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   _onSubmit(): void {
-    console.debug(`submit: ${this.category} / ${this.searchQuery}`);
+    // console.debug(`submit: ${this.category} / ${this.searchQuery}`);
     this.search.emit({
       category: this.category,
       query: this.searchQuery,
@@ -151,12 +170,6 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   private _moveCursorToEnd() {
     const el = this._searchInput.nativeElement;
-    if (typeof el.selectionStart == 'number') {
-      el.selectionStart = el.selectionEnd = el.value.length;
-    } else if (typeof el.createTextRange != 'undefined') {
-      const range = el.createTextRange();
-      range.collapse(false);
-      range.select();
-    }
+    el.selectionStart = el.selectionEnd = el.value.length;
   }
 }
