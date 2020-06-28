@@ -6,8 +6,5 @@
     "types": ["jest", "node"]
   },
   "files": ["src/test-setup.ts"],
-  "include": [
-    "libs/ngx-highlight/src/**/*.spec.ts",
-    "libs/ngx-highlight/src/**/*.d.ts"
-  ]
+  "include": ["**/*.spec.ts", "**/*.d.ts"]
 }
