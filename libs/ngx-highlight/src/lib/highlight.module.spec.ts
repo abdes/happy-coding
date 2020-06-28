@@ -14,10 +14,7 @@ describe('NgxHighlightModule', () => {
     }).compileComponents();
   }));
 
-  // TODO: Add real tests here.
-  //
-  // NB: This particular test does not do anything useful.
-  //     It does NOT check for correct instantiation of the module.
+  // This module has nothing special to test
   it('should have a module definition', () => {
     expect(HighlightModule).toBeDefined();
   });
