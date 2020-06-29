@@ -1,6 +1,6 @@
 {
   "name": "@npcz/ngx-search-bar",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Angular component for a customizable material search bar",
   "license": "BSD-3-Clause",
   "author": "Abdessattar Sassi (https://github.com/abdes)",
