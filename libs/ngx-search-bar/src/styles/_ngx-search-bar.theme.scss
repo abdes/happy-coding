@@ -1,0 +1,44 @@
+// Copyright (c) 2019-2020 The Authors
+// This file is part of @npcz/ngx-search-bar
+// https://github.com/abdes/happy-coding
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
+// Import library functions for theme creation.
+@import '~@angular/material/theming';
+
+@mixin ngx-search-bar-color($theme) {
+  $is-dark-theme: map-get($theme, is-dark);
+  // Extract the palettes you need from the theme definition.
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  // Styling that depends on the color theme
+
+  .clear__separator {
+    border-color: mat-color($foreground, divider);
+  }
+
+  .search__input {
+    background: transparent;
+    color: mat-color($foreground, text);
+  }
+
+  .search__wrapper {
+    margin: 4px;
+    padding: 5px;
+    border-radius: 8px;
+  }
+}
+
+@mixin ngx-search-bar-typography($config) {
+}
+
+// Angular material implementation is changing to enhance theming. For now it
+// just support color theming.
+@mixin ngx-search-bar-theme($theme) {
+  @include ngx-search-bar-color($theme);
+}
