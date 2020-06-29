@@ -98,6 +98,13 @@ export class AppComponent {
 </hc-search-bar>
 ```
 
+### 4. Include the theming support styles in your app
+
+ngx-search-bar uses SASS styling and provides mixins that can be integrated into
+and angular material application theme. Simply follow the instructions for
+[Angular Material Theming](https://material.angular.io/guide/theming). The theme
+file is located in `node_modules/@npcz/ngx-search-bar/src/styles`.
+
 ## Adding search suggestions with autocomplete
 
 The component has zero dependencies on services or providers from the
@@ -136,10 +143,13 @@ to the search bar and using its observables:
 ```
 
 ```ts
-export class GlobalSearchBarComponent extends BaseComponent
-  implements AfterViewInit {
+export class GlobalSearchBarComponent implements AfterViewInit, OnDestroy {
   @ViewChild(MatAutocomplete) private _autocomplete: MatAutocomplete;
   @ViewChild(SearchBarComponent) private _searchBar: SearchBarComponent;
+
+  // Automatic unsubscription when the component is destroyed
+  // We don't want an emitted value, just the fact of emitting is enough
+  private _ngUnsubscribe$ = new Subject<never>();
 
   private _searchSuggestions = new BehaviorSubject<string[]>([]);
   searchSuggestions: Observable<
@@ -179,19 +189,24 @@ export class GlobalSearchBarComponent extends BaseComponent
             this._loadSearchSuggestion(value);
           }
         }),
-        takeUntil(this.ngUnsubscribe$)
+        takeUntil(this._ngUnsubscribe$)
       )
       .subscribe();
 
     // Know when the search needs to be done (user clicked the search button or
     // hit the 'Enter' key)
     this._searchBar.search
-      .pipe(takeUntil(this.ngUnsubscribe$))
+      .pipe(takeUntil(this._ngUnsubscribe$))
       .subscribe((value) => {
         console.debug('submit: ', value);
         // Reset the search suggestions
         this._searchSuggestions.next([]);
       });
+  }
+
+  ngOnDestroy(): void {
+    this._ngUnsubscribe$.next();
+    this._ngUnsubscribe$.complete();
   }
 
   // Implementation of the search suggestions.
