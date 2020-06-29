@@ -1,0 +1,28 @@
+<!--
+  ~ Copyright (c) 2019-2020 The Authors
+  ~ This file is part of @npcz/ngx-search-bar
+  ~ https://github.com/abdes/happy-coding
+  ~
+  ~ SPDX-License-Identifier: BSD-3-Clause
+  -->
+
+<hc-search-bar
+  [highlightStyle]="highlightStyle"
+  [categoryList]="categories"
+  category="All Products"
+  clearButton="true"
+>
+</hc-search-bar>
+<mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption="true">
+  <mat-option *ngIf="isLoading" class="is-loading"
+    ><mat-spinner diameter="40"></mat-spinner
+  ></mat-option>
+  <ng-container *ngIf="!isLoading">
+    <mat-option
+      *ngFor="let suggestion of searchSuggestions | async"
+      [value]="suggestion"
+    >
+      <span>{{ suggestion }}</span>
+    </mat-option>
+  </ng-container>
+</mat-autocomplete>
