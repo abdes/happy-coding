@@ -26,7 +26,7 @@
               "apps/example/src/assets"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/ngx-highlight/src/styles"]
+              "includePaths": ["libs/published/ngx-highlight/src/styles"]
             },
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
@@ -134,40 +134,43 @@
     },
     "ngx-highlight": {
       "projectType": "library",
-      "root": "libs/ngx-highlight",
-      "sourceRoot": "libs/ngx-highlight/src",
+      "root": "libs/published/ngx-highlight",
+      "sourceRoot": "libs/published/ngx-highlight/src",
       "prefix": "hlt",
       "architect": {
         "build": {
           "builder": "@nrwl/angular:package",
           "options": {
-            "tsConfig": "libs/ngx-highlight/tsconfig.lib.json",
-            "project": "libs/ngx-highlight/ng-package.json"
+            "tsConfig": "libs/published/ngx-highlight/tsconfig.lib.json",
+            "project": "libs/published/ngx-highlight/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "libs/ngx-highlight/tsconfig.lib.prod.json"
+              "tsConfig": "libs/published/ngx-highlight/tsconfig.lib.prod.json"
             }
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "eslintConfig": "libs/ngx-highlight/.eslintrc.js",
+            "eslintConfig": "libs/published/ngx-highlight/.eslintrc.js",
             "tsConfig": [
-              "libs/ngx-highlight/tsconfig.lib.json",
-              "libs/ngx-highlight/tsconfig.spec.json"
+              "libs/published/ngx-highlight/tsconfig.lib.json",
+              "libs/published/ngx-highlight/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/ngx-highlight/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/published/ngx-highlight/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/ngx-highlight/jest.config.js",
-            "tsConfig": "libs/ngx-highlight/tsconfig.spec.json",
+            "jestConfig": "libs/published/ngx-highlight/jest.config.js",
+            "tsConfig": "libs/published/ngx-highlight/tsconfig.spec.json",
             "passWithNoTests": true,
-            "setupFile": "libs/ngx-highlight/src/test-setup.ts"
+            "setupFile": "libs/published/ngx-highlight/src/test-setup.ts"
           }
         }
       },
@@ -179,40 +182,43 @@
     },
     "ngx-search-bar": {
       "projectType": "library",
-      "root": "libs/ngx-search-bar",
-      "sourceRoot": "libs/ngx-search-bar/src",
+      "root": "libs/published/ngx-search-bar",
+      "sourceRoot": "libs/published/ngx-search-bar/src",
       "prefix": "msb",
       "architect": {
         "build": {
           "builder": "@nrwl/angular:package",
           "options": {
-            "tsConfig": "libs/ngx-search-bar/tsconfig.lib.json",
-            "project": "libs/ngx-search-bar/ng-package.json"
+            "tsConfig": "libs/published/ngx-search-bar/tsconfig.lib.json",
+            "project": "libs/published/ngx-search-bar/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "libs/ngx-search-bar/tsconfig.lib.prod.json"
+              "tsConfig": "libs/published/ngx-search-bar/tsconfig.lib.prod.json"
             }
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "eslintConfig": "libs/ngx-search-bar/.eslintrc.js",
+            "eslintConfig": "libs/published/ngx-search-bar/.eslintrc.js",
             "tsConfig": [
-              "libs/ngx-search-bar/tsconfig.lib.json",
-              "libs/ngx-search-bar/tsconfig.spec.json"
+              "libs/published/ngx-search-bar/tsconfig.lib.json",
+              "libs/published/ngx-search-bar/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/ngx-search-bar/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/published/ngx-search-bar/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/ngx-search-bar/jest.config.js",
-            "tsConfig": "libs/ngx-search-bar/tsconfig.spec.json",
+            "jestConfig": "libs/published/ngx-search-bar/jest.config.js",
+            "tsConfig": "libs/published/ngx-search-bar/tsconfig.spec.json",
             "passWithNoTests": true,
-            "setupFile": "libs/ngx-search-bar/src/test-setup.ts"
+            "setupFile": "libs/published/ngx-search-bar/src/test-setup.ts"
           }
         }
       },
@@ -252,8 +258,8 @@
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
-                "libs/ngx-highlight/src/styles",
-                "libs/ngx-search-bar/src/styles"
+                "libs/published/ngx-highlight/src/styles",
+                "libs/published/ngx-search-bar/src/styles"
               ]
             },
             "styles": [

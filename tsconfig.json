@@ -18,16 +18,16 @@
       "path": "./apps/example-e2e/tsconfig.e2e.json"
     },
     {
-      "path": "./libs/ngx-highlight/tsconfig.lib.json"
+      "path": "./libs/published/ngx-highlight/tsconfig.lib.json"
     },
     {
-      "path": "./libs/ngx-highlight/tsconfig.spec.json"
+      "path": "./libs/published/ngx-highlight/tsconfig.spec.json"
     },
     {
-      "path": "./libs/ngx-search-bar/tsconfig.lib.json"
+      "path": "./libs/published/ngx-search-bar/tsconfig.lib.json"
     },
     {
-      "path": "./libs/ngx-search-bar/tsconfig.spec.json"
+      "path": "./libs/published/ngx-search-bar/tsconfig.spec.json"
     },
     {
       "path": "./apps/playground-shared/tsconfig.app.json"

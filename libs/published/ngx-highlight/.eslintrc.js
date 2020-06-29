@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const workspaceConfig = require('../../.eslintrc');
+const workspaceConfig = require('../../../.eslintrc');
 
 /**
  * We are using the .JS version of an ESLint config file here so that we can
@@ -21,8 +21,8 @@ module.exports = _.merge({}, workspaceConfig, {
   },
   parserOptions: {
     project: [
-      'libs/ngx-search-bar/tsconfig.lib.json',
-      'libs/ngx-search-bar/tsconfig.spec.json',
+      'libs/published/ngx-highlight/tsconfig.lib.json',
+      'libs/published/ngx-highlight/tsconfig.spec.json',
     ],
   },
 });

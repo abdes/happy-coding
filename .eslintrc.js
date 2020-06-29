@@ -35,19 +35,47 @@ module.exports = {
         allow: [],
         depConstraints: [
           {
-            sourceTag: 'app',
-            onlyDependOnLibsWithTags: ['lib'],
-          },
-          {
-            sourceTag: 'shared',
-            onlyDependOnLibsWithTags: ['shared'],
+            sourceTag: 'scope:shared',
+            onlyDependOnLibsWithTags: ['scope:shared'],
           },
           // We allow publishable projects to depend on other publishable
           // projects, knowing that in reality all imports will be done as if
           // they were coming from node_modules.
           {
-            sourceTag: 'publishable',
-            onlyDependOnLibsWithTags: ['publishable'],
+            sourceTag: 'scope:published',
+            onlyDependOnLibsWithTags: ['scope:published'],
+          },
+          {
+            sourceTag: 'scope:web',
+            onlyDependOnLibsWithTags: ['scope:shared', 'scope:web'],
+          },
+          {
+            sourceTag: 'scope:electron',
+            onlyDependOnLibsWithTags: ['scope:shared', 'scope:electron'],
+          },
+          {
+            sourceTag: 'scope:app-example',
+            onlyDependOnLibsWithTags: ['scope:shared', 'scope:app-example'],
+          },
+          {
+            sourceTag: 'scope:app-example-web',
+            onlyDependOnLibsWithTags: [
+              'scope:shared',
+              'scope:app-example',
+              'scope:app-example-web',
+            ],
+          },
+          {
+            sourceTag: 'type:data',
+            onlyDependOnLibsWithTags: ['type:data', 'type:util'],
+          },
+          {
+            sourceTag: 'type:ui',
+            onlyDependOnLibsWithTags: ['type:ui', 'type:util'],
+          },
+          {
+            sourceTag: 'type:util',
+            onlyDependOnLibsWithTags: ['type:util'],
           },
         ],
       },

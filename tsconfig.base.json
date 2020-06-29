@@ -16,8 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@npcz/ngx-highlight": ["libs/ngx-highlight/src/index.ts"],
-      "@npcz/ngx-search-bar": ["libs/ngx-search-bar/src/index.ts"]
+      "@npcz/ngx-highlight": ["libs/published/ngx-highlight/src/index.ts"],
+      "@npcz/ngx-search-bar": ["libs/published/ngx-search-bar/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

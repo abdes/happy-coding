@@ -1,12 +1,15 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../dist/out-tsc",
+    "outDir": "../../../dist/out-tsc",
     "target": "es2015",
     "declaration": true,
     "inlineSources": true,
     "types": [],
-    "lib": ["dom", "es2018"]
+    "lib": ["dom", "es2018"],
+    "paths": {
+      "@npcz/ngx-highlight": ["node_modules/@npcz/ngx-highlight"]
+    }
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,

@@ -20,21 +20,21 @@
   },
   "projects": {
     "example": {
-      "tags": ["app", "client", "web"]
+      "tags": ["scope:app-example-web"]
     },
     "example-e2e": {
-      "tags": ["e2e"],
+      "tags": ["scope:e2e"],
       "implicitDependencies": ["example"]
     },
     "ngx-highlight": {
-      "tags": ["lib", "shared", "publishable"]
+      "tags": ["scope:shared", "scope:published", "type:ui"]
     },
     "ngx-search-bar": {
-      "tags": ["lib", "publishable", "shared"],
+      "tags": ["scope:published", "scope:shared", "type:ui"],
       "implicitDependencies": ["ngx-highlight"]
     },
     "playground-shared": {
-      "tags": ["app", "web", "client"],
+      "tags": ["scope:web"],
       "implicitDependencies": ["ngx-highlight", "ngx-search-bar"]
     }
   }
