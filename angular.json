@@ -251,7 +251,10 @@
               }
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/ngx-highlight/src/styles"]
+              "includePaths": [
+                "libs/ngx-highlight/src/styles",
+                "libs/ngx-search-bar/src/styles"
+              ]
             },
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",

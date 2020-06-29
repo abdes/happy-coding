@@ -8,6 +8,7 @@
 
 // Import library and app specific theming styles
 @import 'ngx-highlight.theme';
+@import 'ngx-search-bar.theme';
 
 // app specific styles
 // @import 'tl-activity-bar-theme';
@@ -30,10 +31,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
 // Include theme styles for your custom components.
 @include ngx-highlight-theme($theme);
+@include ngx-search-bar-theme($theme);
 
 // Our dark theme
 .dark-theme {
-  color: $light-primary-text;
   $dark-primary: mat-palette($mat-yellow);
   $dark-accent: mat-palette($mat-amber, A400, A100, A700);
   $dark-warn: mat-palette($mat-red);
@@ -43,7 +44,8 @@ $theme: mat-light-theme($primary, $accent, $warn);
   @include angular-material-theme($dark-theme);
 
   // Include theme styles for your custom components.
-  @include ngx-highlight-theme($theme);
+  @include ngx-highlight-theme($dark-theme);
+  @include ngx-search-bar-theme($dark-theme);
 }
 
 html {
