@@ -4,10 +4,10 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, Optional } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ROUTER_NAVIGATED, RouterNavigationAction } from '@ngrx/router-store';
-// import { environment } from '@workspace/environment';
+import { HC_APPLICATION_NAME_TOKEN } from '@workspace/util-angular';
 import { Title } from '@angular/platform-browser';
 import * as fromRouterStore from './reducer';
 import { map } from 'rxjs/operators';
@@ -41,9 +41,11 @@ export class RouterStoreEffects {
         ofType(ROUTER_NAVIGATED),
         map((action: RouterNavigationAction<fromRouterStore.MergedRoute>) => {
           if (action.payload.routerState.data.title) {
-            // TODO: get application name from the environment/config
-            // const ctx = { applicationName: environment.appName };
-            const ctx = { applicationName: 'TODO: app title' };
+            const ctx = {
+              applicationName: this._applicationName
+                ? this._applicationName
+                : '',
+            };
             this.titleService.setTitle(
               action.payload.routerState.data.title(ctx)
             );
@@ -66,6 +68,9 @@ export class RouterStoreEffects {
     private actions$: Actions,
     private titleService: Title,
     private store$: Store<fromRouterStore.State>,
-    private router: Router
+    private router: Router,
+    @Optional()
+    @Inject(HC_APPLICATION_NAME_TOKEN)
+    private _applicationName: string
   ) {}
 }
