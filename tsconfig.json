@@ -46,6 +46,12 @@
     },
     {
       "path": "./libs/shared/util-angular/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/shared/data-router-store/tsconfig.lib.json"
+    },
+    {
+      "path": "./libs/shared/data-router-store/tsconfig.spec.json"
     }
   ]
 }

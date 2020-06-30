@@ -363,6 +363,42 @@
           "style": "scss"
         }
       }
+    },
+    "data-router-store": {
+      "projectType": "library",
+      "root": "libs/shared/data-router-store",
+      "sourceRoot": "libs/shared/data-router-store/src",
+      "prefix": "hc",
+      "architect": {
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "eslintConfig": "libs/shared/data-router-store/.eslintrc.js",
+            "tsConfig": [
+              "libs/shared/data-router-store/tsconfig.lib.json",
+              "libs/shared/data-router-store/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/data-router-store/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/data-router-store/jest.config.js",
+            "tsConfig": "libs/shared/data-router-store/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/shared/data-router-store/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {
