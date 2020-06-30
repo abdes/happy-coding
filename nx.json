@@ -26,6 +26,10 @@
       "tags": ["scope:e2e"],
       "implicitDependencies": ["example"]
     },
+    "playground-shared": {
+      "tags": ["scope:web"],
+      "implicitDependencies": ["ngx-highlight", "ngx-search-bar"]
+    },
     "ngx-highlight": {
       "tags": ["scope:shared", "scope:published", "type:ui"]
     },
@@ -33,9 +37,8 @@
       "tags": ["scope:published", "scope:shared", "type:ui"],
       "implicitDependencies": ["ngx-highlight"]
     },
-    "playground-shared": {
-      "tags": ["scope:web"],
-      "implicitDependencies": ["ngx-highlight", "ngx-search-bar"]
+    "ui-base": {
+      "tags": ["scope:shared", "type:ui"]
     }
   }
 }
