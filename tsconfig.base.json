@@ -22,6 +22,9 @@
       "@workspace/util-angular": ["libs/shared/util-angular/src/index.ts"],
       "@workspace/data-router-store": [
         "libs/shared/data-router-store/src/index.ts"
+      ],
+      "@workspace/feature-app-core": [
+        "libs/shared/feature-app-core/src/index.ts"
       ]
     }
   },

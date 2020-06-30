@@ -45,6 +45,9 @@
     },
     "data-router-store": {
       "tags": ["scope:shared", "type:data"]
+    },
+    "feature-app-core": {
+      "tags": ["scope:shared", "type:feature"]
     }
   }
 }
