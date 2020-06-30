@@ -40,6 +40,12 @@
     },
     {
       "path": "./libs/shared/ui-base/tsconfig.spec.json"
+    },
+    {
+      "path": "./libs/shared/util-angular/tsconfig.lib.json"
+    },
+    {
+      "path": "./libs/shared/util-angular/tsconfig.spec.json"
     }
   ]
 }

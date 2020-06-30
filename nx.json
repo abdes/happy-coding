@@ -39,6 +39,9 @@
     },
     "ui-base": {
       "tags": ["scope:shared", "type:ui"]
+    },
+    "util-angular": {
+      "tags": ["scope:shared", "type:util"]
     }
   }
 }
