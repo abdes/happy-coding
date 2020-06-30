@@ -4,4 +4,5 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
+export * from './injection-tokens';
 export { throwIfAlreadyLoaded } from './singleton-module';
