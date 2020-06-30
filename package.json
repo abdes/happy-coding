@@ -61,6 +61,7 @@
     "@angular/compiler-cli": "~10.0.1",
     "@angular/language-service": "~10.0.1",
     "@ngneat/spectator": "^5.11.0",
+    "@ngrx/store-devtools": "^9.2.0",
     "@nrwl/angular": "^9.4.5",
     "@nrwl/cypress": "^9.4.5",
     "@nrwl/eslint-plugin-nx": "^9.4.5",

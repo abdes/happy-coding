@@ -4,5 +4,6 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-export { CoreModule } from './core.module';
-export * from './services';
+import { Provider } from '@angular/core';
+
+export const CORE_PROVIDERS: Provider[] = [];
