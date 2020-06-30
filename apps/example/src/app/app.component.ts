@@ -15,7 +15,6 @@ export class AppComponent {
   // TODO: Implement dark/light theme switching
   isDarkTheme = false;
 
-  title = 'example';
   readonly highlightStyle: HighlightStyleConfig = {
     hover: 'background',
     focus: 'outline',

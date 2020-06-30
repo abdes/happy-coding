@@ -21,12 +21,7 @@ describe('AppComponent', () => {
     expect(spectator.component).toBeTruthy();
   });
 
-  it('should have as title "example"', () => {
-    spectator = createComponent();
-    expect(spectator.component.title).toEqual('example');
-  });
-
-  it('should render title', () => {
+  it('should render welcome message', () => {
     spectator = createComponent();
     expect(spectator.query('.header__greeting')).toHaveText(
       'Welcome to example!'
