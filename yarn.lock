@@ -1897,6 +1897,21 @@
     jquery "3.5.0"
     replace-in-file "^4.1.3"
 
+"@ngrx/effects@^9.2.0":
+  version "9.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-9.2.0.tgz#155bfcfd528aa993fd19f60f9536385984a80910"
+  integrity sha512-8V09zDIPehGpzgfcgyczelovsVYJvDQhN9wHt37K5A+YCG0CI8nj8FmKokHATwv/S62YqFrOVnr/TZacxpDhBw==
+
+"@ngrx/router-store@^9.2.0":
+  version "9.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/router-store/-/router-store-9.2.0.tgz#e84bb25b3480d06605d1006fd50983dd541c7c5d"
+  integrity sha512-thu6aU9YWM64oNEk4Srx/mNSeQ2SPJKlTji8MSzfr06qgCMyPSXZBYlfs8HqY+af3eB7XBEhb/4ew4JJ6xC9zw==
+
+"@ngrx/store@^9.2.0":
+  version "9.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-9.2.0.tgz#39f663f98b5332b33c8d197be3ab08bafd85bc88"
+  integrity sha512-V8AI3mxbMztVpbZpALkLZYlGkofKcu9GaOCY5e+sZ1VcJ90oxhFjBpnmd6MuVdmhep1XAHALb1B8ZbBFn+xsgQ==
+
 "@ngtools/webpack@10.0.0":
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-10.0.0.tgz#52a86105b04aaeafe7c35461e694b3fa9a838e50"

@@ -42,6 +42,9 @@
     },
     "util-angular": {
       "tags": ["scope:shared", "type:util"]
+    },
+    "data-router-store": {
+      "tags": ["scope:shared", "type:data"]
     }
   }
 }

@@ -19,7 +19,10 @@
       "@npcz/ngx-highlight": ["libs/published/ngx-highlight/src/index.ts"],
       "@npcz/ngx-search-bar": ["libs/published/ngx-search-bar/src/index.ts"],
       "@workspace/ui-base": ["libs/shared/ui-base/src/index.ts"],
-      "@workspace/util-angular": ["libs/shared/util-angular/src/index.ts"]
+      "@workspace/util-angular": ["libs/shared/util-angular/src/index.ts"],
+      "@workspace/data-router-store": [
+        "libs/shared/data-router-store/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
