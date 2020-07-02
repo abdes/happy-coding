@@ -4,12 +4,18 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
+.search__clear,
+.search__submit {
+  height: 34px;
+  line-height: 34px;
+  width: 34px;
+}
+
 .clear__separator {
   border-right: thin;
   border-right-style: solid;
   width: 5px;
   height: 60%;
-  margin-right: 5px;
 }
 
 .search__input {
@@ -18,13 +24,13 @@
   margin: 0;
 }
 
-.search__wrapper {
-  margin: 4px;
-  padding: 5px;
-  border-radius: 8px;
+.search__form {
+  padding: 0;
+  border-radius: 4px;
 }
 
 .search-category__button {
+  height: 34px;
   padding: 0 0 0 5px;
   margin-right: 5px;
   min-width: 80px;

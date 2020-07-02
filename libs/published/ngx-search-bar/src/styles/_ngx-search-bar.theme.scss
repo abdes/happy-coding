@@ -26,12 +26,6 @@
     background: transparent;
     color: mat-color($foreground, text);
   }
-
-  .search__wrapper {
-    margin: 4px;
-    padding: 5px;
-    border-radius: 8px;
-  }
 }
 
 @mixin ngx-search-bar-typography($config) {
