@@ -5,6 +5,6 @@
     "types": []
   },
   "files": ["src/main.ts", "src/polyfills.ts"],
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "../../libs/shared/ui-header/src/**/*.sandbox.ts"],
   "exclude": ["src/test-setup.ts", "**/*.spec.ts", "**/*.module.ts"]
 }

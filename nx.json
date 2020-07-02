@@ -48,6 +48,9 @@
     },
     "feature-app-core": {
       "tags": ["scope:shared", "type:feature"]
+    },
+    "ui-header": {
+      "tags": ["scope:shared", "type:ui"]
     }
   }
 }

@@ -1,0 +1,7 @@
+$toolbar-height: 4rem;
+
+.header__toolbar {
+  transition: background-color 500ms linear;
+  animation: 1s ease-in-out 0ms 1 fadein;
+  height: $toolbar-height;
+}
