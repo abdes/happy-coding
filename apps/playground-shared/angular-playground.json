@@ -1,5 +1,5 @@
 {
-  "sourceRoots": ["apps/playground-shared/src"],
+  "sourceRoots": ["apps/playground-shared/src", "libs/shared/ui-header/src"],
   "angularCli": {
     "appName": "playground-shared"
   }
