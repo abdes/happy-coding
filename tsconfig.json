@@ -6,6 +6,7 @@
   To learn more see: https://angular.io/config/solution-tsconfig.
 */
 {
+  "compilerOptions": { "baseUrl": ".", "rootDir": "." },
   "files": [],
   "references": [
     {
