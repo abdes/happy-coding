@@ -11,22 +11,13 @@
   <mat-select [(value)]="shipToRegion" (valueChange)="onRegionChanged()">
     <mat-select-trigger class="trigger">
       <span>Ship to &nbsp;</span>
-      <span class="trigger__region"
-        >{{
-          shipToRegion.displayName
-            ? shipToRegion.displayName
-            : shipToRegion.name
-        }}
-        &nbsp;</span
-      >
+      <span class="trigger__region">{{ shipToRegion.displayName }} &nbsp;</span>
       <mat-icon></mat-icon>
     </mat-select-trigger>
     <mat-option *ngFor="let region of regions" [value]="region"
-      ><span class="select-option__text--hidden">{{
-        region.displayName ? region.displayName : region.name
-      }}</span>
+      ><span class="select-option__text--hidden">{{ region.displayName }}</span>
       <mat-icon>home</mat-icon>
-      <span>{{ region.displayName ? region.displayName : region.name }}</span>
+      <span>{{ region.displayName }} ({{ region.countryCode }})</span>
     </mat-option>
   </mat-select>
 </div>

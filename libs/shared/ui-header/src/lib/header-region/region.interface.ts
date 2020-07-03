@@ -5,7 +5,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
 export interface RegionInterface {
-  name: string;
-  displayName?: string;
-  flag?: string;
+  countryCode: string;
+  displayName: string;
+  languageCode: string;
 }

@@ -22,9 +22,9 @@ export class HeaderComponent implements OnInit {
 
   regions: RegionInterface[] = countryCodes.customArray(
     {
-      name: '{countryCode}',
+      countryCode: '{countryCode}',
       displayName: '{countryNameEn}',
-      flag: '{flag}',
+      languageCode: 'officialLanguageCode',
     },
     { sortBy: 'displayName' }
   );
