@@ -259,7 +259,8 @@
             "stylePreprocessorOptions": {
               "includePaths": [
                 "libs/published/ngx-highlight/src/styles",
-                "libs/published/ngx-search-bar/src/styles"
+                "libs/published/ngx-search-bar/src/styles",
+                "libs/shared/ui-header/src/styles"
               ]
             },
             "styles": [
