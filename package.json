@@ -44,6 +44,7 @@
     "@ngrx/effects": "^9.2.0",
     "@ngrx/router-store": "^9.2.0",
     "@ngrx/store": "^9.2.0",
+    "country-codes-list": "^1.6.5",
     "ngx-ellipsis": "^2.3.1",
     "rxjs": "^6.5.5",
     "tslib": "^2.0.0",

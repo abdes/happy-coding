@@ -1,7 +1,72 @@
-$toolbar-height: 4rem;
+// Copyright (c) 2019-2020 The Authors
+// This file is the result of Happy Coding :-)
+// https://github.com/abdes/happy-coding
+//
+// SPDX-License-Identifier: BSD-3-Clause
 
-.header__toolbar {
+:host {
   transition: background-color 500ms linear;
   animation: 1s ease-in-out 0ms 1 fadein;
-  height: $toolbar-height;
+  padding-top: 40px;
+  padding-bottom: 5px;
+  display: block;
+  position: relative;
+}
+
+.header__row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.header__row--secondary {
+  padding: 0 15px 0 5px;
+  font-size: small;
+  align-items: stretch;
+  height: 40px;
+  top: 0;
+  left: 0;
+  position: absolute;
+
+  .header__element:not(:last-child):not(:first-child) {
+    margin-right: 15px;
+  }
+}
+
+.header__row--primary {
+  padding: 0px 15px;
+  align-items: center;
+  height: 80px;
+  .header__element:not(:last-child) {
+    margin-right: 20px;
+  }
+}
+
+.fill-remaining {
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+.header-menu__icon {
+  margin-top: -3px;
+}
+.header__logo {
+  min-width: 100px;
+  max-width: 150px;
+}
+
+@media screen and (max-width: 800px) {
+  hc-header-links {
+    display: none;
+  }
+}
+@media screen and (max-width: 600px) {
+  hc-header-region {
+    display: none;
+  }
+
+  .header__logo {
+    display: none;
+  }
 }

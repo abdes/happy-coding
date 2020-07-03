@@ -1,1 +1,45 @@
-<mat-toolbar class="header__toolbar"> Header </mat-toolbar>
+<!--
+  ~ Copyright (c) 2019-2020 The Authors
+  ~ This file is the result of Happy Coding :-)
+  ~ https://github.com/abdes/happy-coding
+  ~
+  ~ SPDX-License-Identifier: BSD-3-Clause
+  -->
+
+<div class="header__row header__row--secondary">
+  <button
+    class="header__element"
+    mat-icon-button
+    (click)="onMenuButtonClicked()"
+  >
+    <mat-icon class="header-menu__icon">menu</mat-icon>
+  </button>
+  <!-- Current user and sign-in-->
+  <hc-header-user class="header__element" userName="User"></hc-header-user>
+
+  <hc-header-links class="header__element" [links]="links"></hc-header-links>
+
+  <hc-header-region
+    class="header__element fill-remaining"
+    [regions]="regions"
+    language="English"
+    [shipToRegion]="regions[0]"
+  ></hc-header-region>
+</div>
+<div class="header__row header__row--primary">
+  <hc-header-logo
+    class="header__element header__logo"
+    svgIcon="shoped:logo"
+    withLink="true"
+  ></hc-header-logo>
+
+  <!-- Custom content area-->
+  <hc-search-bar
+    clearButton="true"
+    placeholder="Search anything..."
+    class="header__element fill-remaining"
+  ></hc-search-bar>
+
+  <!-- Shopping Cart -->
+  <div class="header__element">Cart</div>
+</div>

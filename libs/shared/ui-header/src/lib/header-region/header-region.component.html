@@ -1,0 +1,40 @@
+<!--
+  ~ Copyright (c) 2019-2020 The Authors
+  ~ This file is the result of Happy Coding :-)
+  ~ https://github.com/abdes/happy-coding
+  ~
+  ~ SPDX-License-Identifier: BSD-3-Clause
+  -->
+
+<div class="fill-remaining"></div>
+<div class="header-region__select" matRipple matRippleCentered>
+  <mat-select [(value)]="shipToRegion" (valueChange)="onRegionChanged()">
+    <mat-select-trigger class="trigger">
+      <span>Ship to &nbsp;</span>
+      <span class="trigger__region"
+        >{{
+          shipToRegion.displayName
+            ? shipToRegion.displayName
+            : shipToRegion.name
+        }}
+        &nbsp;</span
+      >
+      <mat-icon></mat-icon>
+    </mat-select-trigger>
+    <mat-option *ngFor="let region of regions" [value]="region"
+      ><span class="select-option__text--hidden">{{
+        region.displayName ? region.displayName : region.name
+      }}</span>
+      <mat-icon>home</mat-icon>
+      <span>{{ region.displayName ? region.displayName : region.name }}</span>
+    </mat-option>
+  </mat-select>
+</div>
+
+<div class="header-region__separator"></div>
+
+<div class="header-region__language" matRipple matRippleCentered>
+  <a href="#" (click)="$event.preventDefault(); onChangeLanguage()">{{
+    language
+  }}</a>
+</div>

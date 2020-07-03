@@ -1,0 +1,16 @@
+<!--
+  ~ Copyright (c) 2019-2020 The Authors
+  ~ This file is the result of Happy Coding :-)
+  ~ https://github.com/abdes/happy-coding
+  ~
+  ~ SPDX-License-Identifier: BSD-3-Clause
+  -->
+
+<a
+  *ngFor="let link of links"
+  [href]="link.route"
+  class="header__link"
+  (click)="$event.preventDefault(); onLinkClicked(link.route)"
+  draggable="false"
+  >{{ link.label }}</a
+>

@@ -1,0 +1,31 @@
+// Copyright (c) 2019-2020 The Authors
+// This file is the result of Happy Coding :-)
+// https://github.com/abdes/happy-coding
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
+:host {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.header-user__name {
+  font-weight: bold;
+}
+
+.header-user__signin-link {
+  white-space: nowrap;
+  a {
+    cursor: pointer;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

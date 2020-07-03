@@ -1,0 +1,52 @@
+// Copyright (c) 2019-2020 The Authors
+// This file is the result of Happy Coding :-)
+// https://github.com/abdes/happy-coding
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
+// Import library functions for theme creation.
+@import '~@angular/material/theming';
+
+@mixin ui-header-color($theme) {
+  $is-dark-theme: map-get($theme, is-dark);
+  // Extract the palettes you need from the theme definition.
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  // Styling that depends on the color theme
+  .header__row--secondary {
+    @include mat-elevation(2);
+  }
+  .header__row--primary {
+    background-color: mat-color($background, app-bar);
+  }
+
+  .header-region__select,
+  .header-region__language {
+    &:hover {
+      background-color: mat-color($background, hover);
+    }
+  }
+
+  .header-user__signin-link {
+    white-space: nowrap;
+    a {
+      color: mat-color($accent, text);
+      &:visited {
+        color: mat-color($accent, text);
+      }
+    }
+  }
+}
+
+@mixin ui-header-typography($config) {
+}
+
+// Angular material implementation is changing to enhance theming. For now it
+// just support color theming.
+@mixin ui-header-theme($theme) {
+  @include ui-header-color($theme);
+}

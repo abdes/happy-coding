@@ -1,0 +1,19 @@
+<!--
+  ~ Copyright (c) 2019-2020 The Authors
+  ~ This file is the result of Happy Coding :-)
+  ~ https://github.com/abdes/happy-coding
+  ~
+  ~ SPDX-License-Identifier: BSD-3-Clause
+  -->
+
+<span class="header-user__greeting nowrap">Hello</span>
+<span *ngIf="userName" class="header-user__name nowrap"
+  >&nbsp; {{ userName }}</span
+>
+<span *ngIf="!isAuthenticated" class="header-user__signin-link nowrap">
+  &nbsp;(
+  <a href="#" (click)="onSignInLinkClicked($event)" draggable="false"
+    >Sign in</a
+  >
+  )
+</span>

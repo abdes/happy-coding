@@ -8,15 +8,42 @@ import { sandboxOf } from 'angular-playground';
 
 import { CommonModule } from '@angular/common';
 
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatRippleModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { SearchBarModule } from '@npcz/ngx-search-bar';
 
 import { HeaderComponent } from '../lib/header/header.component';
+import { HeaderLinksComponent } from '../lib/header-links/header-links.component';
+import { HeaderLogoComponent } from '../lib/header-logo/header-logo.component';
+import { HeaderRegionComponent } from '../lib/header-region/header-region.component';
+import { HeaderUserComponent } from '../lib/header-user/header-user.component';
+
 import { provideMockStore } from '@ngrx/store/testing';
 
 const sandboxConfig = {
-  imports: [CommonModule, MatToolbarModule],
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatRippleModule,
+    MatSelectModule,
+    SearchBarModule,
+  ],
   providers: [provideMockStore({})],
-  declarations: [HeaderComponent],
+  declarations: [
+    HeaderComponent,
+    HeaderLinksComponent,
+    HeaderLogoComponent,
+    HeaderRegionComponent,
+    HeaderUserComponent,
+  ],
   exports: [HeaderComponent],
   label: 'ui-header',
 };
