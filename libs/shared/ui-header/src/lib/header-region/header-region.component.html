@@ -7,7 +7,13 @@
   -->
 
 <div class="fill-remaining"></div>
-<div class="header-region__select" matRipple matRippleCentered>
+
+<div
+  class="header-region__select"
+  matRipple
+  matRippleCentered
+  title="Click to change the ship to destination"
+>
   <mat-select [(value)]="shipToRegion" (valueChange)="onRegionChanged()">
     <mat-select-trigger class="trigger">
       <span>Ship to &nbsp;</span>
@@ -24,8 +30,17 @@
 
 <div class="header-region__separator"></div>
 
-<div class="header-region__language" matRipple matRippleCentered>
-  <a href="#" (click)="$event.preventDefault(); onChangeLanguage()">{{
-    language
-  }}</a>
+<div class="header-region__language" title="Click to change the language">
+  <button mat-button [matMenuTriggerFor]="languageMenu">
+    {{ language.displayName }}
+  </button>
+  <mat-menu #languageMenu="matMenu">
+    <button
+      *ngFor="let language of supportedLanguages"
+      mat-menu-item
+      (click)="onLanguageSelected(language.languageCode)"
+    >
+      {{ language.displayName }} ({{ language.languageCode }})
+    </button>
+  </mat-menu>
 </div>

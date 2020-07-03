@@ -4,8 +4,9 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { RegionInterface } from './region.interface';
+import { LanguageInterface } from './language.interface';
 
 @Component({
   selector: 'hc-header-region',
@@ -15,13 +16,19 @@ import { RegionInterface } from './region.interface';
 export class HeaderRegionComponent {
   @Input() regions: RegionInterface[];
   @Input() shipToRegion: RegionInterface;
-  @Input() language: string;
+  @Input() language: LanguageInterface;
+  @Input() supportedLanguages: LanguageInterface[];
+  @Output() languageChange = new EventEmitter<string>();
+  @Output() shipToRegionChange = new EventEmitter<string>();
 
-  onChangeLanguage(): void {
-    console.debug('change language clicked');
+  onLanguageSelected(languageCode: string): void {
+    this.language = this.supportedLanguages.find(
+      (element) => element.languageCode == languageCode
+    );
+    this.languageChange.emit(languageCode);
   }
 
   onRegionChanged(): void {
-    console.debug('region changed: ', this.shipToRegion);
+    this.shipToRegionChange.emit(this.shipToRegion.countryCode);
   }
 }

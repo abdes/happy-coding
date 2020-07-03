@@ -4,13 +4,16 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
+import * as countryCodes from 'country-codes-list';
+import * as _ from 'lodash';
+
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
-import { RegionInterface } from '../header-region/region.interface';
 
-import * as countryCodes from 'country-codes-list';
+import { RegionInterface } from '../header-region/region.interface';
 import { HeaderLinkInterface } from '../header-links/header-link.interface';
+import { LanguageInterface } from '../header-region/language.interface';
 
 @Component({
   selector: 'hc-header',
@@ -27,6 +30,29 @@ export class HeaderComponent implements OnInit {
       languageCode: 'officialLanguageCode',
     },
     { sortBy: 'displayName' }
+  );
+
+  supportedLanguageCodes = ['en', 'fr', 'ar'];
+  activeLanguageCode = 'en';
+
+  supportedLanguages: LanguageInterface[] = _.uniqWith(
+    countryCodes.customArray(
+      {
+        languageCode: '{officialLanguageCode}',
+        displayName: '{officialLanguageNameLocal}',
+      },
+      {
+        sortBy: 'languageCode',
+        filter: (countryData) =>
+          this.supportedLanguageCodes.includes(
+            countryData.officialLanguageCode
+          ),
+      }
+    ),
+    _.isEqual
+  );
+  activeLanguage = this.supportedLanguages.find(
+    (element) => element.languageCode == this.activeLanguageCode
   );
 
   links: HeaderLinkInterface[] = [
@@ -58,9 +84,19 @@ export class HeaderComponent implements OnInit {
     );
 
     console.debug(this._iconRegistry.getNamedSvgIcon('logo', 'shoped'));
+
+    console.debug(this.supportedLanguages);
   }
 
   onMenuButtonClicked(): void {
     console.debug('menu button clicked');
+  }
+
+  onLanguageChanged(languageCode: string): void {
+    console.debug('New language selected: ', languageCode);
+  }
+
+  onShipToRegionChanged(countryCode: string): void {
+    console.debug('New ship-to region selected: ', countryCode);
   }
 }

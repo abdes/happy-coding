@@ -24,8 +24,7 @@
     background-color: mat-color($background, app-bar);
   }
 
-  .header-region__select,
-  .header-region__language {
+  .header-region__select {
     &:hover {
       background-color: mat-color($background, hover);
     }

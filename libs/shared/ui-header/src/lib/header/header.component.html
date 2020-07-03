@@ -6,6 +6,7 @@
   ~ SPDX-License-Identifier: BSD-3-Clause
   -->
 
+<!-- Secondary header row -->
 <div class="header__row header__row--secondary">
   <button
     class="header__element"
@@ -22,10 +23,15 @@
   <hc-header-region
     class="header__element fill-remaining"
     [regions]="regions"
-    language="English"
     [shipToRegion]="regions[0]"
+    [supportedLanguages]="supportedLanguages"
+    [language]="activeLanguage"
+    (languageChange)="onLanguageChanged($event)"
+    (shipToRegionChange)="onShipToRegionChanged($event)"
   ></hc-header-region>
 </div>
+
+<!-- Primary header row -->
 <div class="header__row header__row--primary">
   <hc-header-logo
     class="header__element header__logo"
