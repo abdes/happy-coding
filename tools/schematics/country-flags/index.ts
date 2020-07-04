@@ -14,13 +14,13 @@ import {
   chain,
   mergeWith,
   move,
+  noop,
   url,
   apply,
   SchematicContext,
 } from '@angular-devkit/schematics';
 import { getWorkspace } from '@schematics/angular/utility/workspace';
 import { Schema as CommandOptions } from './schema';
-import { noop } from 'rxjs';
 
 async function makeDefaultPath(host, options: CommandOptions) {
   const workspace = await getWorkspace(host);
@@ -50,7 +50,7 @@ export default function (options: CommandOptions): Rule {
         '\nUse --countries with comma-separated list of country codes to include in the icon set.'
       );
       context.logger.info('Use --all to include all availabel countries.\n');
-      return noop;
+      return noop();
     }
 
     if (options.countries) {
