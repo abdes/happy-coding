@@ -29,7 +29,10 @@ export class HeaderComponent implements OnInit {
       displayName: '{countryNameEn}',
       languageCode: 'officialLanguageCode',
     },
-    { sortBy: 'displayName' }
+    {
+      sortBy: 'displayName',
+      filter: (value) => value.officialLanguageCode == 'ar',
+    }
   );
 
   supportedLanguageCodes = ['en', 'fr', 'ar'];
