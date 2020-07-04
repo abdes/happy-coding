@@ -10,11 +10,14 @@
 
 <div
   class="header-region__select"
-  matRipple
-  matRippleCentered
   title="Click to change the ship to destination"
 >
-  <mat-select [(value)]="shipToRegion" (valueChange)="onRegionChanged()">
+  <mat-select
+    [(value)]="shipToRegion"
+    (valueChange)="onRegionChanged()"
+    matRipple
+    matRippleCentered
+  >
     <mat-select-trigger class="trigger">
       <span>Ship to &nbsp;</span>
       <span class="trigger__region">{{ shipToRegion.displayName }} &nbsp;</span>

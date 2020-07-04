@@ -23,9 +23,18 @@
   max-width: 300px;
 
   .trigger {
+    height: 100%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+  }
+
+  .mat-select {
+    height: 100%;
+  }
+
+  ::ng-deep .mat-select-trigger {
+    height: 100%;
   }
 
   .trigger__region {
