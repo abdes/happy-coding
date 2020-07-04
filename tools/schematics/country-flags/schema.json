@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "SchematicsCountryFlagsIconSet",
+  "title": "Create SVG icon set for country flags",
+  "type": "object",
+  "properties": {
+    "countries": {
+      "description": "The country codes to include in the icon set.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "$default": {
+        "$source": "argv"
+      }
+    },
+    "all": {
+      "description": "When true, include all available countries in the icon set.",
+      "default": false,
+      "type": "boolean"
+    },
+    "list": {
+      "description": "When true, just list all country codes/names.",
+      "default": false,
+      "type": "boolean"
+    },
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path where to create the .svg for the icon set.",
+      "visible": false
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the application project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "name": {
+      "type": "string",
+      "description": "Library name",
+      "x-prompt": "What name would you like to use for the icon-set?"
+    }
+  },
+  "required": ["name"]
+}
