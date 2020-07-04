@@ -25,6 +25,7 @@ import { HeaderRegionComponent } from '../lib/header-region/header-region.compon
 import { HeaderUserComponent } from '../lib/header-user/header-user.component';
 
 import { provideMockStore } from '@ngrx/store/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 const sandboxConfig = {
   imports: [
@@ -37,6 +38,7 @@ const sandboxConfig = {
     MatRippleModule,
     MatSelectModule,
     SearchBarModule,
+    HttpClientModule,
   ],
   providers: [provideMockStore({})],
   declarations: [

@@ -83,7 +83,17 @@ export class HeaderComponent implements OnInit {
       {}
     );
 
+    this._iconRegistry.addSvgIconSetInNamespace(
+      'flags',
+      this._sanitizer.bypassSecurityTrustResourceUrl(
+        '/assets/ship-to-countries-flags.icon-set.svg'
+      )
+    );
+
     console.debug(this._iconRegistry.getNamedSvgIcon('logo', 'shoped'));
+    this._iconRegistry
+      .getNamedSvgIcon('ae', 'flags')
+      .subscribe((icon) => console.debug(icon));
 
     console.debug(this.supportedLanguages);
   }

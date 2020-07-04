@@ -18,11 +18,15 @@
     <mat-select-trigger class="trigger">
       <span>Ship to &nbsp;</span>
       <span class="trigger__region">{{ shipToRegion.displayName }} &nbsp;</span>
-      <mat-icon></mat-icon>
+      <mat-icon
+        svgIcon="flags:{{ shipToRegion.countryCode.toLowerCase() }}"
+      ></mat-icon>
     </mat-select-trigger>
     <mat-option *ngFor="let region of regions" [value]="region"
       ><span class="select-option__text--hidden">{{ region.displayName }}</span>
-      <mat-icon>home</mat-icon>
+      <mat-icon
+        svgIcon="flags:{{ region.countryCode.toLowerCase() }}"
+      ></mat-icon>
       <span>{{ region.displayName }} ({{ region.countryCode }})</span>
     </mat-option>
   </mat-select>
