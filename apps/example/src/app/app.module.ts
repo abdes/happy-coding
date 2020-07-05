@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { CoreModule } from '@workspace/feature-app-core';
+import { AppConfigModule } from '@workspace/feature-app-config';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
@@ -26,6 +27,7 @@ import {
   declarations: [AppComponent],
   imports: [
     CoreModule.forRoot([]),
+    AppConfigModule.forRoot({ path: '/assets/data/example-config.json' }),
     // ngrx store dev tools will only be loaded if not in production
     // the @ngrx/store-devtools will hence be a dev dependency
     !environment.production

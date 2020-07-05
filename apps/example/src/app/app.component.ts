@@ -5,6 +5,7 @@
 
 import { Component } from '@angular/core';
 import { HighlightStyleConfig } from '@npcz/ngx-highlight';
+import { AppConfigService } from '@workspace/feature-app-config';
 
 @Component({
   selector: 'exmp-app-root',
@@ -27,4 +28,10 @@ export class AppComponent {
     'Electronics',
     'Home & Kitchen',
   ];
+
+  greeting: string;
+
+  constructor(private _configService: AppConfigService) {
+    this.greeting = _configService.config.greeting;
+  }
 }

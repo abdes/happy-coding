@@ -8,12 +8,25 @@ import { AppComponent } from './app.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HighlightModule } from '@npcz/ngx-highlight';
 import { SearchBarModule } from '@npcz/ngx-search-bar';
+import { AppConfigService } from '@workspace/feature-app-config';
+
+class MockAppConfigService {
+  config = {
+    greeting: 'Welcome to example!',
+  };
+}
 
 describe('AppComponent', () => {
   let spectator: Spectator<AppComponent>;
   const createComponent = createComponentFactory({
     component: AppComponent,
     imports: [MatToolbarModule, HighlightModule, SearchBarModule],
+    providers: [
+      {
+        provide: AppConfigService,
+        useClass: MockAppConfigService,
+      },
+    ],
   });
 
   it('should create the app', () => {
