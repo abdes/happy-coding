@@ -26,6 +26,9 @@
       "@workspace/feature-app-core": [
         "libs/shared/feature-app-core/src/index.ts"
       ],
+      "@workspace/feature-app-config": [
+        "libs/shared/feature-app-config/src/index.ts"
+      ],
       "@workspace/ui-header": ["libs/shared/ui-header/src/index.ts"]
     }
   },

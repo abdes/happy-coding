@@ -1,12 +1,24 @@
-/*
-  This is a "Solution Style" tsconfig.json file, and is used by editors and
-  TypeScript’s language server to improve development experience.
-  It is not intended to be used to perform a compilation.
-
-  To learn more see: https://angular.io/config/solution-tsconfig.
-*/
 {
-  "compilerOptions": { "baseUrl": ".", "rootDir": "." },
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": ".",
+    "paths": {
+      "@npcz/ngx-highlight": ["libs/published/ngx-highlight/src/index.ts"],
+      "@npcz/ngx-search-bar": ["libs/published/ngx-search-bar/src/index.ts"],
+      "@workspace/ui-base": ["libs/shared/ui-base/src/index.ts"],
+      "@workspace/util-angular": ["libs/shared/util-angular/src/index.ts"],
+      "@workspace/data-router-store": [
+        "libs/shared/data-router-store/src/index.ts"
+      ],
+      "@workspace/feature-app-core": [
+        "libs/shared/feature-app-core/src/index.ts"
+      ],
+      "@workspace/feature-app-config": [
+        "libs/shared/feature-app-config/src/index.ts"
+      ],
+      "@workspace/ui-header": ["libs/shared/ui-header/src/index.ts"]
+    }
+  },
   "files": [],
   "references": [
     {
@@ -65,6 +77,12 @@
     },
     {
       "path": "./libs/shared/ui-header/tsconfig.spec.json"
+    },
+    {
+      "path": "./shared-feature-app-config/tsconfig.lib.json"
+    },
+    {
+      "path": "./shared-feature-app-config/tsconfig.spec.json"
     }
   ]
 }

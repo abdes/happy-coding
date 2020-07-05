@@ -51,6 +51,9 @@
     },
     "ui-header": {
       "tags": ["scope:shared", "type:ui"]
+    },
+    "feature-app-config": {
+      "tags": ["scope:shared", "type:feature"]
     }
   }
 }
