@@ -79,10 +79,10 @@
       "path": "./libs/shared/ui-header/tsconfig.spec.json"
     },
     {
-      "path": "./shared-feature-app-config/tsconfig.lib.json"
+      "path": "./libs/shared/feature-app-config/tsconfig.lib.json"
     },
     {
-      "path": "./shared-feature-app-config/tsconfig.spec.json"
+      "path": "./libs/shared/feature-app-config/tsconfig.spec.json"
     }
   ]
 }
