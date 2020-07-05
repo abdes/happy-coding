@@ -4,10 +4,10 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
+export { AppConfigModule } from './app-config.module';
 export {
-  AppConfigModule,
   ConfigLoaderOptions,
   APP_CONFIG_LOADER_OPTIONS_TOKEN,
-} from './app-config.module';
+} from './config-loader';
 
 export * from './services';
