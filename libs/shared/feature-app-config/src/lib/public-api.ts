@@ -11,3 +11,4 @@ export {
 } from './config-loader';
 
 export * from './services';
+export * from './json-config';

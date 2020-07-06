@@ -45,6 +45,7 @@
     "@ngrx/router-store": "^9.2.0",
     "@ngrx/store": "^9.2.0",
     "country-codes-list": "^1.6.5",
+    "json-ptr": "^1.2.0",
     "ngx-ellipsis": "^2.3.1",
     "rxjs": "^6.6.0",
     "tslib": "^2.0.0",
