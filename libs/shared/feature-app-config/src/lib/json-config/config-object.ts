@@ -101,7 +101,7 @@ export class ConfigObject {
   ): Promise<string[]> {
     if (!this._data.$externals) {
       // we have no references -> bailout quickly
-      return;
+      return [];
     }
 
     if (!Array.isArray(this._data.$externals)) {
