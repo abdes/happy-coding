@@ -118,6 +118,7 @@ export class ConfigObject {
 
     const promises = [];
     for (const external of this._data.$externals) {
+      // TODO: Normalize the external's path and support relative paths
       // Check circular refs
       if (parents.indexOf(external.path) !== -1) {
         // found circular ref
