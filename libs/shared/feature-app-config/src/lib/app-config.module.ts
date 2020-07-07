@@ -17,9 +17,9 @@ import { AppConfigService } from './services/app-config.service';
 import { throwIfAlreadyLoaded } from '@workspace/util-angular';
 import {
   loadConfig,
-  ConfigLoaderOptions,
+  AppConfigLoaderOptions,
   APP_CONFIG_LOADER_OPTIONS_TOKEN,
-} from './config-loader';
+} from './app-config-loader';
 
 /**
  * Loads application configuration data and provides it through the
@@ -36,7 +36,7 @@ import {
 })
 export class AppConfigModule {
   static forRoot(
-    options?: ConfigLoaderOptions
+    options?: AppConfigLoaderOptions
   ): ModuleWithProviders<AppConfigModule> {
     return {
       ngModule: AppConfigModule,

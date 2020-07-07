@@ -6,9 +6,9 @@
 
 export { AppConfigModule } from './app-config.module';
 export {
-  ConfigLoaderOptions,
+  AppConfigLoaderOptions,
   APP_CONFIG_LOADER_OPTIONS_TOKEN,
-} from './config-loader';
+} from './app-config-loader';
 
 export * from './services';
 export * from './json-config';

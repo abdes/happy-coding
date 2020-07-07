@@ -18,18 +18,18 @@ import { AngularHttpConfigLoader } from './json-config/ng-http-loader';
 // --
 // NOTE: This value has to be exported otherwise the AoT compiler won't see it.
 export const APP_CONFIG_LOADER_OPTIONS_TOKEN = new InjectionToken<
-  ConfigLoaderOptions
+  AppConfigLoaderOptions
 >('AppConfigModule forRoot() options');
 
 /**
  * Options to help the config loader factory function locate app config data.
  */
-export interface ConfigLoaderOptions {
+export interface AppConfigLoaderOptions {
   path?: string;
   continueOnError?: boolean;
 }
 
-const DEFAULT_CONFIG_LOADER_OPTIONS: ConfigLoaderOptions = {
+const DEFAULT_CONFIG_LOADER_OPTIONS: AppConfigLoaderOptions = {
   path: '/assets/data/app-config.json',
 };
 
@@ -47,7 +47,7 @@ const DEFAULT_CONFIG_LOADER_OPTIONS: ConfigLoaderOptions = {
 export function loadConfig(
   http: HttpClient,
   configService: AppConfigService,
-  options: ConfigLoaderOptions
+  options: AppConfigLoaderOptions
 ): () => Promise<boolean> {
   return (): Promise<boolean> => {
     // Apply default options

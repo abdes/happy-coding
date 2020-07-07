@@ -8,3 +8,4 @@ export * from './config-parser';
 export * from './config-object';
 export * from './config-loader.interface';
 export * from './config-options';
+export * from './config-status';

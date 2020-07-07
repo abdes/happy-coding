@@ -4,13 +4,13 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-jest.mock('./config-loader');
-const configLoader = require('./config-loader');
+jest.mock('./app-config-loader');
+const configLoader = require('./app-config-loader');
 
 import { TestBed, fakeAsync } from '@angular/core/testing';
 
 import { AppConfigModule } from './app-config.module';
-import { APP_CONFIG_LOADER_OPTIONS_TOKEN } from './config-loader';
+import { APP_CONFIG_LOADER_OPTIONS_TOKEN } from './app-config-loader';
 import { ApplicationInitStatus } from '@angular/core';
 
 describe('AppConfigModule', () => {
