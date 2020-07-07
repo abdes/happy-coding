@@ -2,7 +2,7 @@
   "$externals": [
     {
       "name": "strings",
-      "path": "/assets/data/strings.json"
+      "path": "./strings.json"
     }
   ],
   "greeting": { "$ref": "strings#/greeting" }
