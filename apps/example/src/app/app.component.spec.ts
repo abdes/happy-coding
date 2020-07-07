@@ -11,30 +11,25 @@ import { SearchBarModule } from '@npcz/ngx-search-bar';
 import { AppConfigService } from '@workspace/feature-app-config';
 
 class MockAppConfigService {
-  config = {
-    greeting: 'Welcome to example!',
-  };
+  get = jest.fn();
 }
 
 describe('AppComponent', () => {
   let spectator: Spectator<AppComponent>;
+  const configService = new MockAppConfigService();
   const createComponent = createComponentFactory({
     component: AppComponent,
     imports: [MatToolbarModule, HighlightModule, SearchBarModule],
     providers: [
       {
         provide: AppConfigService,
-        useClass: MockAppConfigService,
+        useValue: configService,
       },
     ],
   });
 
-  it('should create the app', () => {
-    spectator = createComponent();
-    expect(spectator.component).toBeTruthy();
-  });
-
   it('should render welcome message', () => {
+    configService.get.mockReturnValueOnce('Welcome to example!');
     spectator = createComponent();
     expect(spectator.query('.header__greeting')).toHaveText(
       'Welcome to example!'
