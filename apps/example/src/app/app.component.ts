@@ -32,6 +32,6 @@ export class AppComponent {
   greeting: string;
 
   constructor(private _configService: AppConfigService) {
-    this.greeting = _configService.config.greeting;
+    this.greeting = _configService.get('/greeting');
   }
 }

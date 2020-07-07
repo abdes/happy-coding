@@ -1,3 +1,9 @@
 {
-  "greeting": "Welcome to example!"
+  "$externals": [
+    {
+      "name": "strings",
+      "path": "/assets/data/strings.json"
+    }
+  ],
+  "greeting": { "$ref": "strings#/greeting" }
 }
