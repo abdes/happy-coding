@@ -23,6 +23,10 @@ export class ConfigObject {
   private _loadingComplete = this._loadingCompleteSubject.asObservable();
   private _data: Record<string, unknown>;
 
+  public get path(): string {
+    return this._path;
+  }
+
   static isReference(value: unknown): boolean {
     return (
       value &&

@@ -10,14 +10,15 @@ import { ConfigStatus } from './config-status';
 
 export class ConfigParser {
   private _root: ConfigObject;
-  private _externals = new Map<string, ConfigObject>();
+  private _externals: Map<string, ConfigObject>;
 
   constructor(options: ConfigOptions, path: string) {
     this._root = new ConfigObject(options, path);
-    this._externals.set(path, this._root);
   }
 
   async load(): Promise<ConfigStatus> {
+    this._externals = new Map<string, ConfigObject>();
+    this._externals.set(this._root.path, this._root);
     return this._root.load(this._externals);
   }
 
