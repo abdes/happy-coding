@@ -114,11 +114,19 @@ export class ConfigObject {
       );
     }
 
+    const externals = this._data.$externals as { name: string; path: string }[];
+
     parents.push(this._path);
 
     const promises = [];
-    for (const external of this._data.$externals) {
-      // TODO: Normalize the external's path and support relative paths
+    for (const external of externals) {
+      // Externals can have a relative path, which must start with './' or '../'
+      // In that case, we resolve it relatively to the dependent path and
+      // normalize before we continue
+      if (isRelative(external.path)) {
+        external.path = absolute(this._path, external.path);
+      }
+
       // Check circular refs
       if (parents.indexOf(external.path) !== -1) {
         // found circular ref
@@ -195,4 +203,20 @@ export class ConfigObject {
       this._loadingCompleteSubject.next(true);
     });
   }
+}
+
+function isRelative(path: string): boolean {
+  return path.startsWith('./') || path.startsWith('../');
+}
+
+function absolute(base: string, relative: string): string {
+  const stack = base.split('/'),
+    parts = relative.split('/');
+  stack.pop(); // remove current file name (or empty string)
+  for (let i = 0; i < parts.length; i++) {
+    if (parts[i] == '.') continue;
+    if (parts[i] == '..') stack.pop();
+    else stack.push(parts[i]);
+  }
+  return stack.join('/');
 }
