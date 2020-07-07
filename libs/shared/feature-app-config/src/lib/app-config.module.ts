@@ -52,7 +52,7 @@ export class AppConfigModule {
         {
           provide: APP_INITIALIZER,
           useFactory: loadConfig,
-          deps: [HttpClient, AppConfigService],
+          deps: [HttpClient, AppConfigService, APP_CONFIG_LOADER_OPTIONS_TOKEN],
           multi: true,
         },
 

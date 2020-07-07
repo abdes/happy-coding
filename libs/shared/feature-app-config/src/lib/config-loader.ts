@@ -9,8 +9,9 @@ import * as _ from 'lodash';
 import { InjectionToken } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from './services/app-config.service';
-import { map, catchError, take } from 'rxjs/operators';
-import { of, ObservableInput } from 'rxjs';
+
+import { ConfigParser } from './json-config';
+import { AngularHttpConfigLoader } from './json-config/ng-http-loader';
 
 // Injection token that makes the options available to the config loader
 // factory function.
@@ -25,6 +26,7 @@ export const APP_CONFIG_LOADER_OPTIONS_TOKEN = new InjectionToken<
  */
 export interface ConfigLoaderOptions {
   path?: string;
+  continueOnError?: boolean;
 }
 
 const DEFAULT_CONFIG_LOADER_OPTIONS: ConfigLoaderOptions = {
@@ -48,36 +50,25 @@ export function loadConfig(
   options: ConfigLoaderOptions
 ): () => Promise<boolean> {
   return (): Promise<boolean> => {
-    return new Promise<boolean>((resolve: (a: boolean) => void): void => {
-      // Apply default options
-      if (!options) options = {};
-      _.defaults(options, DEFAULT_CONFIG_LOADER_OPTIONS);
+    // Apply default options
+    if (!options) options = {};
+    _.defaults(options, DEFAULT_CONFIG_LOADER_OPTIONS);
 
-      // Fetch the config data
-      http
-        .get(options.path)
-        .pipe(
-          map((data) => {
-            configService.config = data;
-            resolve(true);
-          }),
-          take(1),
-          catchError(
-            (err: {
-              status: number;
-            }): ObservableInput<Record<string, unknown>> => {
-              if (err.status !== 404) {
-                resolve(false);
-              } else {
-                // TODO: set any generic defaults here
-                configService.config = {};
-                resolve(true);
-              }
-              return of({});
-            }
-          )
-        )
-        .subscribe();
+    const loader = new AngularHttpConfigLoader(http);
+    const parser = new ConfigParser(
+      {
+        loader: loader,
+        continueOnError: options.continueOnError,
+      },
+      options.path
+    );
+    configService.config = parser;
+    return new Promise<boolean>((resolve) => {
+      parser.load().then((status) => {
+        if (!status.success)
+          console.error('Failed to initialize app config: ', status);
+        resolve(status.success);
+      });
     });
   };
 }
