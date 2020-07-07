@@ -6,11 +6,11 @@
 
 import { ConfigLoader } from './config-loader.interface';
 
-export interface Options {
+export interface ConfigOptions {
   loader: ConfigLoader;
   continueOnError?: boolean;
 }
 
-export const DEFAULT_OPTIONS: Partial<Options> = {
+export const DEFAULT_OPTIONS: Partial<ConfigOptions> = {
   continueOnError: true,
 };

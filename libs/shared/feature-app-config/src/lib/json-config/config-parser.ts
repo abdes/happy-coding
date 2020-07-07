@@ -4,19 +4,20 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import { Options } from './options';
+import { ConfigOptions } from './config-options';
 import { ConfigObject } from './config-object';
+import { ConfigStatus } from './config-status';
 
 export class ConfigParser {
   private _root: ConfigObject;
   private _externals = new Map<string, ConfigObject>();
 
-  constructor(options: Options, path: string) {
+  constructor(options: ConfigOptions, path: string) {
     this._root = new ConfigObject(options, path);
     this._externals.set(path, this._root);
   }
 
-  async load(): Promise<boolean> {
+  async load(): Promise<ConfigStatus> {
     return this._root.load(this._externals);
   }
 

@@ -36,14 +36,14 @@ class MockLoader implements ConfigLoader {
       {
         $externals: [
           {
-            name: '3',
+            name: '1',
             path: '/3.json',
           },
         ],
         config: {
           simple: '1-simple',
           localRef: { $ref: '#/config/simple' },
-          externalRef: { $ref: '3#/config/simple' },
+          externalRef: { $ref: '1#/config/simple' },
         },
       },
     ],
@@ -52,8 +52,12 @@ class MockLoader implements ConfigLoader {
       {
         $externals: [
           {
-            name: '3',
+            name: '1',
             path: '/3.json',
+          },
+          {
+            name: '2',
+            path: '/__does-not-exist__.json',
           },
         ],
       },
@@ -80,6 +84,10 @@ class MockLoader implements ConfigLoader {
             name: '1',
             path: '/1.json',
           },
+          {
+            name: '2',
+            path: '/__does-not-exist__.json',
+          },
         ],
       },
     ],
@@ -92,22 +100,20 @@ class MockLoader implements ConfigLoader {
 describe('Config parser e2e test', () => {
   const loader = new MockLoader();
 
-  it('should resolve references', async (done) => {
-    const parser = new ConfigParser({ loader: loader }, '/main.json');
-    await parser.load();
+  it('should resolve externals and reports errors/warnings', async () => {
+    const parser = new ConfigParser(
+      { loader: loader, continueOnError: true },
+      '/main.json'
+    );
+    const result = await parser.load();
+    expect(result.success).toBeFalsy();
+    expect(result.errors.length).toEqual(2);
+    expect(result.warnings.length).toEqual(1);
 
-    console.debug(`simple: ${parser.get('/config/simple')}`);
-    console.debug(`simple#: ${parser.get('#/config/simple')}`);
-    console.debug(`localRef: ${parser.get('/config/localRef')}`);
-    console.debug(`externalRef: ${parser.get('/config/externalRef')}`);
-    console.debug(
-      `externalRefToRef: ${parser.get('/config/externalRefToRef')}`
-    );
-    console.debug(
-      `externalRefToExternalRef: ${parser.get(
-        '/config/externalRefToExternalRef'
-      )}`
-    );
-    done();
+    expect(parser.get('/config/simple')).toEqual('main-simple');
+    expect(parser.get('#/config/simple')).toEqual('main-simple');
+    expect(parser.get('/config/localRef')).toEqual('main-simple');
+    expect(parser.get('/config/externalRef')).toEqual('1-simple');
+    expect(parser.get('/config/externalRefToExternalRef')).toEqual('3-simple');
   });
 });

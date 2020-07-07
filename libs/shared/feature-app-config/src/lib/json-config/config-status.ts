@@ -4,7 +4,8 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-export * from './config-parser';
-export * from './config-object';
-export * from './config-loader.interface';
-export * from './config-options';
+export type ConfigStatus = {
+  success: boolean;
+  errors: string[];
+  warnings: string[];
+};

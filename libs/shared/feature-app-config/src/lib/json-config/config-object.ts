@@ -7,8 +7,11 @@
 import * as _ from 'lodash';
 import { JsonPointer } from 'json-ptr';
 
-import { Options, DEFAULT_OPTIONS } from './options';
+import { ConfigOptions, DEFAULT_OPTIONS } from './config-options';
 import { ConfigLoader } from './config-loader.interface';
+import { ReplaySubject } from 'rxjs';
+import { map, take } from 'rxjs/operators';
+import { ConfigStatus } from './config-status';
 
 export class ConfigObject {
   private _loader: ConfigLoader;
@@ -16,7 +19,9 @@ export class ConfigObject {
 
   private _externals = new Map<string, ConfigObject>();
   private _path: string;
-  private _rawData: Record<string, unknown>;
+  private _loadingCompleteSubject = new ReplaySubject<boolean>();
+  private _loadingComplete = this._loadingCompleteSubject.asObservable();
+  private _data: Record<string, unknown>;
 
   static isReference(value: unknown): boolean {
     return (
@@ -28,13 +33,13 @@ export class ConfigObject {
   }
 
   static resolve(target: ConfigObject, pointer: string): unknown {
-    const result = JsonPointer.get(target._rawData, pointer);
+    const result = JsonPointer.get(target._data, pointer);
     return ConfigObject.isReference(result)
       ? target._resolveReference(result as { $ref: string })
       : result;
   }
 
-  constructor(options: Options, path: string) {
+  constructor(options: ConfigOptions, path: string) {
     _.defaults(options, DEFAULT_OPTIONS);
     this._loader = options.loader;
     this._continueOnError = options.continueOnError;
@@ -42,10 +47,33 @@ export class ConfigObject {
     this._path = path;
   }
 
-  async load(allExternals: Map<string, ConfigObject>): Promise<boolean> {
-    this._rawData = await this._loadData();
-    await this._loadExternals([], allExternals);
-    return Promise.resolve(true);
+  async load(allExternals: Map<string, ConfigObject>): Promise<ConfigStatus> {
+    // Bootstrap the loading process by loading the initial configuration
+    // object and then recursively loading externals
+    return this._loadData()
+      .then(() => {
+        // Not being able to load the initial config data is a fatal error
+        if (!this._data)
+          throw new Error(
+            `Failed to load initial configuration data from "${this._path}"`
+          );
+      })
+      .then(() => this._loadExternals([], allExternals))
+      .then((status) => {
+        const flattened: string[] = [].concat(...status);
+        // split warnings from errors
+        const warnings: string[] = [];
+        const errors: string[] = [];
+        for (const item of flattened) {
+          if (item.startsWith('WARN: ')) warnings.push(item.substr(6));
+          if (item.startsWith('ERR: ')) errors.push(item.substr(5));
+        }
+        const success = errors.length === 0;
+        return { success, errors, warnings };
+      })
+      .catch((error: Error) => {
+        return { success: false, errors: [error.message], warnings: [] };
+      });
   }
 
   get(pointer: string): unknown {
@@ -53,7 +81,7 @@ export class ConfigObject {
   }
 
   has(pointer: string): boolean {
-    return JsonPointer.has(this._rawData, pointer);
+    return JsonPointer.has(this._data, pointer);
   }
 
   private _resolveReference(ref: { $ref: string }): unknown {
@@ -67,28 +95,30 @@ export class ConfigObject {
     }
   }
 
-  private _loadExternals(
+  private async _loadExternals(
     parents: string[],
     allExternals: Map<string, ConfigObject>
-  ): Promise<boolean> | Promise<boolean[]> {
-    if (this._rawData.$externals == null) {
+  ): Promise<string[]> {
+    if (!this._data.$externals) {
       // we have no references -> bailout quickly
-      return Promise.resolve(true);
+      return;
     }
 
-    if (!Array.isArray(this._rawData.$externals)) {
-      throw new Error('Invalid imports attribute in raw json');
+    if (!Array.isArray(this._data.$externals)) {
+      throw new Error(
+        'Invalid external attribute in json config ($externals must be an array).'
+      );
     }
 
     parents.push(this._path);
 
     const promises = [];
-    for (const external of this._rawData.$externals) {
+    for (const external of this._data.$externals) {
       // Check circular refs
       if (parents.indexOf(external.path) !== -1) {
         // found circular ref
-        console.warn(
-          `found circular dependency from ${this._path} to ${external.path}`
+        promises.push(
+          `WARN: found circular dependency from ${this._path} to ${external.path}`
         );
         // The config must have been loaded already
         // Just add it to this object's refs table for resolution of pointers
@@ -107,24 +137,57 @@ export class ConfigObject {
         allExternals.set(external.path, extConfig);
 
         promises.push(
-          extConfig._loadData().then((rawData) => {
-            if (rawData || this._continueOnError) {
-              extConfig._rawData = rawData;
-              extConfig._loadExternals(parents, allExternals);
-            } else
+          extConfig._loadData().then(() => {
+            if (extConfig._data) {
+              extConfig._loadingCompleteSubject.next(true);
+              return extConfig
+                ._loadExternals(parents, allExternals)
+                .then((status) => [].concat(...status));
+            } else if (extConfig._continueOnError) {
+              // Not a fatal error, but we will record it in the promise result
+              return [
+                `ERR: Failed to load external config "${extConfig._path}" requested by "${this._path}"`,
+              ];
+            } else {
+              // Fatal
               throw new Error(
-                `Error while loading reference: ${extConfig._path}`
+                `Failed to load external config "${extConfig._path}" requested by "${this._path}"`
               );
+            }
           })
         );
+      } else if (!extConfig._data) {
+        // This is either an external being loaded or an external that failed
+        // to load. We will know that by checking the loadingComplete observable
+        //(with a replay subject), which will tell us exactly when or if the
+        // config is loaded.
+        promises.push(
+          extConfig._loadingComplete
+            .pipe(
+              map(() =>
+                // When loading is complete, we check if the config data is valid
+                // and if not, we report this error specifically for this
+                // dependent config
+                extConfig._data
+                  ? []
+                  : [
+                      `ERR: Failed to load external config "${extConfig._path}" requested by "${this._path}"`,
+                    ]
+              ),
+              take(1)
+            )
+            .toPromise()
+        );
       }
-
       this._externals.set(external.name, extConfig);
     }
     return Promise.all(promises);
   }
 
-  private async _loadData(): Promise<Record<string, unknown>> {
-    return this._loader.read(this._path);
+  private async _loadData(): Promise<void> {
+    return this._loader.read(this._path).then((data) => {
+      this._data = data;
+      this._loadingCompleteSubject.next(true);
+    });
   }
 }
