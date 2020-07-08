@@ -1,0 +1,23 @@
+<!--
+  ~ Copyright (c) 2019-2020 The Authors
+  ~ This file is the result of Happy Coding :-)
+  ~ https://github.com/abdes/happy-coding
+  ~
+  ~ SPDX-License-Identifier: BSD-3-Clause
+  -->
+
+<div
+  class="cart__container"
+  (click)="($event.preventDefault); onCartClicked()"
+  draggable="false"
+  matRipple
+  [matRippleCentered]="true"
+>
+  <mat-icon
+    matBadge="15"
+    matBadgeColor="accent"
+    matBadgePosition="above after"
+    class="cart__icon"
+    >shopping_cart</mat-icon
+  >
+</div>

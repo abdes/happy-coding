@@ -1,0 +1,32 @@
+// Copyright (c) 2019-2020 The Authors
+// This file is the result of Happy Coding :-)
+// https://github.com/abdes/happy-coding
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
+.cart__container {
+  height: 100%;
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+
+  cursor: pointer;
+
+  user-select: none; /* supported by Chrome and Opera */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+
+  &:hover {
+    background-color: lighten($color: #000000, $amount: 90);
+  }
+}
+
+.cart__icon {
+  font-size: 32px;
+  line-height: 32px;
+  width: 32px;
+  height: 32px;
+}

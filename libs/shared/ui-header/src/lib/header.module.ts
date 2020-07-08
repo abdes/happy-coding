@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatBadgeModule } from '@angular/material/badge';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SearchBarModule } from '@npcz/ngx-search-bar';
@@ -22,6 +23,7 @@ import { HeaderLinksComponent } from './header-links/header-links.component';
 import { HeaderLogoComponent } from './header-logo/header-logo.component';
 import { HeaderRegionComponent } from './header-region/header-region.component';
 import { HeaderUserComponent } from './header-user/header-user.component';
+import { HeaderCartComponent } from './header-cart/header-cart.component';
 
 @NgModule({
   imports: [
@@ -33,6 +35,7 @@ import { HeaderUserComponent } from './header-user/header-user.component';
     MatMenuModule,
     MatRippleModule,
     MatSelectModule,
+    MatBadgeModule,
     SearchBarModule,
   ],
   declarations: [
@@ -41,6 +44,7 @@ import { HeaderUserComponent } from './header-user/header-user.component';
     HeaderLogoComponent,
     HeaderRegionComponent,
     HeaderUserComponent,
+    HeaderCartComponent,
   ],
   exports: [HeaderComponent],
 })

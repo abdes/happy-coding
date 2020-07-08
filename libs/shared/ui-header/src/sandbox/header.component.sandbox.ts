@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatBadgeModule } from '@angular/material/badge';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SearchBarModule } from '@npcz/ngx-search-bar';
@@ -23,6 +24,7 @@ import { HeaderLinksComponent } from '../lib/header-links/header-links.component
 import { HeaderLogoComponent } from '../lib/header-logo/header-logo.component';
 import { HeaderRegionComponent } from '../lib/header-region/header-region.component';
 import { HeaderUserComponent } from '../lib/header-user/header-user.component';
+import { HeaderCartComponent } from '../lib/header-cart/header-cart.component';
 
 import { provideMockStore } from '@ngrx/store/testing';
 import { HttpClientModule } from '@angular/common/http';
@@ -37,6 +39,7 @@ const sandboxConfig = {
     MatMenuModule,
     MatRippleModule,
     MatSelectModule,
+    MatBadgeModule,
     SearchBarModule,
     HttpClientModule,
   ],
@@ -47,6 +50,7 @@ const sandboxConfig = {
     HeaderLogoComponent,
     HeaderRegionComponent,
     HeaderUserComponent,
+    HeaderCartComponent,
   ],
   exports: [HeaderComponent],
   label: 'ui-header',

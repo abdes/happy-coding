@@ -51,10 +51,6 @@
 .header-menu__icon {
   margin-top: -3px;
 }
-.header__logo {
-  min-width: 100px;
-  max-width: 150px;
-}
 
 @media screen and (max-width: 800px) {
   hc-header-links {
@@ -69,4 +65,16 @@
   .header__logo {
     display: none;
   }
+}
+
+.header__cart {
+  width: 60px;
+  height: 80%;
+  display: flex;
+  align-items: center;
+}
+
+.header__logo {
+  height: 80%;
+  width: 140px;
 }
