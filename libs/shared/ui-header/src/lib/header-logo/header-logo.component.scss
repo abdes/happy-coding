@@ -4,21 +4,18 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-:host {
-  height: 80%;
-  width: 120px;
-}
-
-.header-logo__link {
+.logo__link {
   cursor: pointer;
   display: flex;
   width: 100%;
   height: 100%;
+  padding: 10px;
 
   display: block;
 }
 
-.header-logo__icon {
+.logo__icon {
   height: 100%;
   width: 100%;
+  color: black;
 }
