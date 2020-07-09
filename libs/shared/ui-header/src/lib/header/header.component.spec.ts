@@ -20,6 +20,7 @@ import { HeaderLinksComponent } from '../header-links/header-links.component';
 import { HeaderLogoComponent } from '../header-logo/header-logo.component';
 import { HeaderRegionComponent } from '../header-region/header-region.component';
 import { HeaderUserComponent } from '../header-user/header-user.component';
+import { HeaderCartComponent } from '../header-cart/header-cart.component';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('HeaderComponent', () => {
@@ -44,6 +45,7 @@ describe('HeaderComponent', () => {
       HeaderLogoComponent,
       HeaderRegionComponent,
       HeaderUserComponent,
+      HeaderCartComponent,
     ],
   });
 
