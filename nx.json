@@ -55,5 +55,8 @@
     "feature-app-config": {
       "tags": ["scope:shared", "type:feature"]
     }
+  },
+  "affected": {
+    "defaultBase": "master"
   }
 }
