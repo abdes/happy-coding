@@ -505,6 +505,54 @@
           "style": "scss"
         }
       }
+    },
+    "ngx-scrollable-nav-bar": {
+      "projectType": "library",
+      "root": "libs/published/ngx-scrollable-nav-bar",
+      "sourceRoot": "libs/published/ngx-scrollable-nav-bar/src",
+      "prefix": "hc",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/published/ngx-scrollable-nav-bar/tsconfig.lib.json",
+            "project": "libs/published/ngx-scrollable-nav-bar/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/published/ngx-scrollable-nav-bar/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "eslintConfig": "libs/published/ngx-scrollable-nav-bar/.eslintrc.js",
+            "tsConfig": [
+              "libs/published/ngx-scrollable-nav-bar/tsconfig.lib.json",
+              "libs/published/ngx-scrollable-nav-bar/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/published/ngx-scrollable-nav-bar/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/published/ngx-scrollable-nav-bar/jest.config.js",
+            "tsConfig": "libs/published/ngx-scrollable-nav-bar/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/published/ngx-scrollable-nav-bar/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {

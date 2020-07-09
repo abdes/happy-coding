@@ -54,6 +54,9 @@
     },
     "feature-app-config": {
       "tags": ["scope:shared", "type:feature"]
+    },
+    "ngx-scrollable-nav-bar": {
+      "tags": ["scope:published", "scope:shared", "type:ui"]
     }
   },
   "affected": {
