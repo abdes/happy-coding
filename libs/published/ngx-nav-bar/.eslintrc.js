@@ -21,8 +21,8 @@ module.exports = _.merge({}, workspaceConfig, {
   },
   parserOptions: {
     project: [
-      'libs/published/ngx-scrollable-nav-bar/tsconfig.lib.json',
-      'libs/published/ngx-scrollable-nav-bar/tsconfig.spec.json',
+      'libs/published/ngx-nav-bar/tsconfig.lib.json',
+      'libs/published/ngx-nav-bar/tsconfig.spec.json',
     ],
   },
 });

@@ -9,6 +9,7 @@
 // Import library and app specific theming styles
 @import 'ngx-highlight.theme';
 @import 'ngx-search-bar.theme';
+@import 'ngx-nav-bar.theme';
 @import 'ui-header.theme';
 
 // app specific styles
@@ -33,6 +34,7 @@ $theme: mat-light-theme($primary, $accent, $warn);
 // Include theme styles for your custom components.
 @include ngx-highlight-theme($theme);
 @include ngx-search-bar-theme($theme);
+@include ngx-nav-bar-theme($theme);
 @include ui-header-theme($theme);
 
 // Our dark theme
@@ -48,6 +50,7 @@ $theme: mat-light-theme($primary, $accent, $warn);
   // Include theme styles for your custom components.
   @include ngx-highlight-theme($dark-theme);
   @include ngx-search-bar-theme($dark-theme);
+  @include ngx-nav-bar-theme($dark-theme);
   @include ui-header-theme($dark-theme);
 }
 

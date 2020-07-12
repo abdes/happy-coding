@@ -65,8 +65,9 @@ function symlinkNgCLItoNxCLI() {
        * This is the most reliable way to create symlink-like behavior on Windows.
        * Such that it works in all shells and works with npx.
        */
-      ['', '.cmd'].forEach((ext) => {
-        fs.writeFileSync(ngPath + ext, fs.readFileSync(nxPath + ext));
+      ['', '.cmd', '.ps1'].forEach((ext) => {
+        if (fs.existsSync(nxPath + ext))
+          fs.writeFileSync(ngPath + ext, fs.readFileSync(nxPath + ext));
       });
     } else {
       // If unix-based, symlink

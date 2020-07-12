@@ -1,0 +1,70 @@
+// Copyright (c) 2019-2020 The Authors
+// This file is part of @npcz/ngx-nav-bar
+// https://github.com/abdes/happy-coding
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
+@use '../../nav-common' as *;
+@use '../nav-bar-common' as *;
+
+.hc-nav-bar {
+  @include hc-nav-bar;
+}
+
+.hc-nav-list {
+  @include hc-nav-list;
+  transition: transform 500ms cubic-bezier(0.35, 0, 0.25, 1);
+}
+
+.hc-nav-scroll {
+  transition: background-color 0.3s;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: $hc-nav-bar-height;
+  line-height: $hc-nav-bar-height;
+  text-align: center;
+  z-index: 2;
+
+  cursor: pointer;
+  touch-action: none;
+}
+
+// The pagination control that is displayed on the left side of the tab header.
+.hc-nav-bar--ltr .hc-nav-scroll--before,
+.hc-nav-bar--rtl .hc-nav-scroll--after {
+  top: 0;
+  left: 0;
+}
+.hc-nav-bar--rtl .hc-nav-scroll--before,
+.hc-nav-bar--ltr .hc-nav-scroll--after {
+  top: 0;
+  right: 0;
+}
+
+.hc-nav-scroll--before,
+.hc-nav-bar--rtl .hc-nav-scroll--after {
+  padding-left: 4px;
+  .hc-nav-scroll__chevron {
+    transform: rotate(-135deg);
+  }
+}
+
+// The pagination control that is displayed on the right side of the tab header.
+.hc-nav-scroll--after,
+.hc-nav-bar--rtl .hc-nav-scroll--before {
+  padding-right: 4px;
+  .hc-nav-scroll__chevron {
+    transform: rotate(45deg);
+  }
+}
+
+.hc-nav-scroll__chevron {
+  border-style: solid;
+  border-width: 2px 2px 0 0;
+  content: none;
+  height: 8px;
+  width: 8px;
+}

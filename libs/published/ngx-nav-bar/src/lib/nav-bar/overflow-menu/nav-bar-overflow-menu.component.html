@@ -1,0 +1,46 @@
+<!--
+  ~ Copyright (c) 2019-2020 The Authors
+  ~ This file is part of @npcz/ngx-search-bar
+  ~ https://github.com/abdes/happy-coding
+  ~
+  ~ SPDX-License-Identifier: BSD-3-Clause
+  -->
+
+<div
+  #navList
+  tabindex="0"
+  class="hc-nav-list"
+  (focus)="_onFocus()"
+  (keydown)="_handleKeydown($event)"
+>
+  <a
+    hc-nav-link
+    *ngFor="let link of _links; let linkIndex = index"
+    [attr.tabindex]="-1"
+    (click)="selectedIndex = linkIndex"
+    [active]="selectedIndex == linkIndex ? true : null"
+    >{{ link.label }}</a
+  >
+</div>
+
+<div
+  class="hc-nav-more__button"
+  aria-hidden="true"
+  [style.visibility]="_hasOverflowLinks() ? '' : 'hidden'"
+  [matMenuTriggerFor]="overflowLinks"
+>
+  <div class="hc-nav-more__label">&#183;&#183;&#183;</div>
+</div>
+
+<mat-menu #overflowLinks="matMenu">
+  <button
+    *ngFor="let link of _getOverflowLinks(); let linkIndex = index"
+    mat-menu-item
+    class="hc-nav-more__item"
+    [class.hc-nav--active]="linkIndex + _overflowStartingIndex == selectedIndex"
+    draggable="false"
+    (click)="_onMenuLinkClicked(linkIndex + _overflowStartingIndex)"
+  >
+    {{ link.label }}
+  </button>
+</mat-menu>

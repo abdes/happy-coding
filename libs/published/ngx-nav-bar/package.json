@@ -1,0 +1,14 @@
+{
+  "name": "@npcz/ngx-nav-bar",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^10.0.2",
+    "@angular/core": "^10.0.2",
+    "@angular/cdk": "^10.0.1",
+    "@angular/material": "^10.0.1",
+    "rxjs": "^6.6.0"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  }
+}

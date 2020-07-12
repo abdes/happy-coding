@@ -1,0 +1,56 @@
+<!--
+  ~ Copyright (c) 2019-2020 The Authors
+  ~ This file is part of @npcz/ngx-search-bar
+  ~ https://github.com/abdes/happy-coding
+  ~
+  ~ SPDX-License-Identifier: BSD-3-Clause
+  -->
+
+<ng-container
+  #leftScroller
+  [ngTemplateOutlet]="scroller"
+  [ngTemplateOutletContext]="{
+    direction: 'before',
+    visibility: _showScrollBefore
+  }"
+></ng-container>
+
+<div
+  #navList
+  tabindex="0"
+  class="hc-nav-list"
+  (focus)="_onFocus()"
+  (keydown)="_handleKeydown($event)"
+>
+  <a
+    hc-nav-link
+    *ngFor="let link of _links; let linkIndex = index"
+    [attr.tabindex]="-1"
+    (click)="selectedIndex = linkIndex"
+    [active]="selectedIndex == linkIndex ? true : null"
+    >{{ link.label }}</a
+  >
+</div>
+
+<ng-container
+  #rightScroller
+  [ngTemplateOutlet]="scroller"
+  [ngTemplateOutletContext]="{
+    direction: 'after',
+    visibility: _showScrollAfter
+  }"
+></ng-container>
+
+<ng-template #scroller let-direction="direction" let-visibility="visibility">
+  <div
+    [ngClass]="'hc-nav-scroll hc-nav-scroll--' + direction"
+    aria-hidden="true"
+    mat-ripple
+    [style.visibility]="visibility ? '' : 'hidden'"
+    (click)="_onScrollClick(direction)"
+    (mousedown)="_onScrollPress(direction, $event)"
+    (touchend)="_stopInterval()"
+  >
+    <div class="hc-nav-scroll__chevron"></div>
+  </div>
+</ng-template>
