@@ -53,7 +53,7 @@
     "feature-app-config": {
       "tags": ["scope:shared", "type:feature"]
     },
-    "ngx-scrollable-nav-bar": {
+    "ngx-nav-bar": {
       "tags": ["scope:published", "scope:shared", "type:ui"]
     }
   },

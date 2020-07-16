@@ -1,0 +1,40 @@
+// Copyright (c) 2019-2020 The Authors
+// This file is part of @npcz/ngx-nav-bar
+// https://github.com/abdes/happy-coding
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
+@use '../../nav-common' as *;
+@use '../nav-bar-common' as *;
+
+.hc-nav-bar {
+  @include hc-nav-bar;
+}
+
+.hc-nav-list {
+  @include hc-nav-list;
+  flex-shrink: 1;
+  flex-basis: 0;
+  overflow: hidden;
+}
+
+.hc-nav-more__button {
+  display: inline-block;
+  width: 32px;
+  height: $hc-nav-bar-height;
+  line-height: $hc-nav-bar-height;
+  text-align: center;
+
+  cursor: pointer;
+}
+
+.hc-nav-more__label {
+  @include hc-nav-no-select;
+  font-weight: bold;
+}
+
+.hc-nav-more__item {
+  &.hc-nav--active {
+    font-weight: bold;
+  }
+}

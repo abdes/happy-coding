@@ -1,0 +1,24 @@
+<!--
+  ~ Copyright (c) 2019-2020 The Authors
+  ~ This file is part of @npcz/ngx-search-bar
+  ~ https://github.com/abdes/happy-coding
+  ~
+  ~ SPDX-License-Identifier: BSD-3-Clause
+  -->
+
+<div
+  tabindex="0"
+  #navList
+  class="hc-nav-list"
+  (focus)="_onFocus()"
+  (keydown)="_handleKeydown($event)"
+>
+  <a
+    hc-nav-link
+    *ngFor="let link of _links; let linkIndex = index"
+    [attr.tabindex]="-1"
+    (click)="selectedIndex = linkIndex"
+    [active]="selectedIndex == linkIndex ? true : null"
+    >{{ link.label }}</a
+  >
+</div>

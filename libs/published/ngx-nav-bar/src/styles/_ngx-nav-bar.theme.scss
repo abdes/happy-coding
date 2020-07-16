@@ -1,0 +1,56 @@
+// Copyright (c) 2019-2020 The Authors
+// This file is part of @npcz/ngx-nav-bar
+// https://github.com/abdes/happy-coding
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
+// Import library functions for theme creation.
+@import '~@angular/material/theming';
+
+@mixin ngx-nav-bar-color($theme) {
+  $is-dark-theme: map-get($theme, is-dark);
+  // Extract the palettes you need from the theme definition.
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  // Styling that depends on the color theme
+
+  .hc-nav-link {
+    color: mat-color($foreground, text);
+
+    &.hc-nav--disabled {
+      color: mat-color($foreground, disabled-text);
+    }
+
+    &:hover,
+    &.cdk-keyboard-focused,
+    &.cdk-program-focused {
+      &:not(.hc-nav--disabled) {
+        background-color: mat-color($background, hover);
+      }
+    }
+  }
+
+  .hc-nav-more__button {
+    background-color: transparentize($color: grey, $amount: 0.8);
+  }
+
+  .hc-nav-scroll {
+    background-color: transparentize($color: grey, $amount: 0.8);
+    &:hover {
+      background-color: transparentize($color: grey, $amount: 0.4);
+    }
+  }
+}
+
+@mixin ngx-nav-bar-typography($config) {
+}
+
+// Angular material implementation is changing to enhance theming. For now it
+// just support color theming.
+@mixin ngx-nav-bar-theme($theme) {
+  @include ngx-nav-bar-color($theme);
+}

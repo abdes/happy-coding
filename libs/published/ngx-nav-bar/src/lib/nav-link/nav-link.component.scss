@@ -1,0 +1,61 @@
+// Copyright (c) 2019-2020 The Authors
+// This file is part of @npcz/ngx-nav-bar
+// https://github.com/abdes/happy-coding
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
+@use '../nav-common' as *;
+
+.hc-nav-link {
+  @include hc-nav-no-select;
+
+  background-color: transparent;
+  transition: background-color 0.3s;
+  opacity: 0.7;
+
+  display: inline-block;
+  line-height: $hc-nav-bar-height - 2px;
+  height: $hc-nav-bar-height - 2px;
+  text-align: center;
+  padding: 0 12px;
+  margin: 1px;
+
+  cursor: pointer;
+
+  position: relative;
+  overflow: hidden; // Keeps the ripple from extending outside the element bounds
+
+  text-decoration: none; // Removes anchor underline styling
+
+  &:hover {
+    opacity: 1;
+  }
+  &.cdk-mouse-focused {
+    outline: none;
+  }
+  &.cdk-keyboard-focused,
+  &.cdk-program-focused {
+    &:not(.hc-nav--disabled) {
+      outline: dashed thin;
+    }
+  }
+
+  &.hc-nav--overflow {
+    visibility: hidden;
+  }
+
+  &.hc-nav--active {
+    opacity: 1;
+    font-weight: bold;
+  }
+
+  &.hc-nav--disabled {
+    // We use `pointer-events` to make the element unclickable when it's disabled, rather than
+    // preventing the default action through JS, because we can't prevent the action reliably
+    // due to other directives potentially registering their events earlier. This shouldn't cause
+    // the user to click through, because we always have a `.mat-tab-links` behind the link.
+    pointer-events: none;
+
+    cursor: default;
+  }
+}

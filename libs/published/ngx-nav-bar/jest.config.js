@@ -1,7 +1,7 @@
 module.exports = {
-  name: 'published-ngx-scrollable-nav-bar',
+  name: 'published-ngx-nav-bar',
   preset: '../../../jest.config.js',
-  coverageDirectory: '../../../coverage/libs/published/ngx-scrollable-nav-bar',
+  coverageDirectory: '../../../coverage/libs/published/ngx-nav-bar',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',

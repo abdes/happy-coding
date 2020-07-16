@@ -65,10 +65,10 @@
       "path": "./libs/shared/feature-app-config/tsconfig.spec.json"
     },
     {
-      "path": "./libs/published/ngx-scrollable-nav-bar/tsconfig.lib.json"
+      "path": "./libs/published/ngx-nav-bar/tsconfig.lib.json"
     },
     {
-      "path": "./libs/published/ngx-scrollable-nav-bar/tsconfig.spec.json"
+      "path": "./libs/published/ngx-nav-bar/tsconfig.spec.json"
     }
   ]
 }
