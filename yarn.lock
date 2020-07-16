@@ -1955,32 +1955,32 @@
   dependencies:
     mkdirp "^1.0.4"
 
-"@nrwl/angular@10.0.0-beta.2":
-  version "10.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@nrwl/angular/-/angular-10.0.0-beta.2.tgz#e903f7362d08a3bfedf68c79ba8419835b9da99b"
-  integrity sha512-QnirSm6KWUyg6OV5DJlbretnd4XY/pK9ONF6eHlXXoBVwb1ltcjOkYo6tYm4kzya5SBE8hP/3rOUHHG6lsw9MA==
+"@nrwl/angular@10.0.0-beta.4":
+  version "10.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@nrwl/angular/-/angular-10.0.0-beta.4.tgz#9b1651e4f29d9b880642de8f82a6d5ed1d9a4b2c"
+  integrity sha512-pgtw/pksH86X6wPBNVAL/yACiSI/fxuK+4qhzpw9Kf9TWDrP3C9dUtqrjEVcUIZiwWIaSnv3nPxtdu7OV3n8mg==
   dependencies:
     "@angular-devkit/schematics" "~10.0.0"
-    "@nrwl/cypress" "10.0.0-beta.2"
-    "@nrwl/jest" "10.0.0-beta.2"
+    "@nrwl/cypress" "10.0.0-beta.4"
+    "@nrwl/jest" "10.0.0-beta.4"
     "@schematics/angular" "~10.0.0"
     jasmine-marbles "~0.6.0"
 
-"@nrwl/cli@10.0.0-beta.2":
-  version "10.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-10.0.0-beta.2.tgz#5ba9cbc39c3956d7656f2883c40d2fcb21d6fd77"
-  integrity sha512-Ab07DNLvT+2rkuB3bKvQleFxFMOOVeNbJXo80fVCvh0wH180vvuh0VfS+Cw5hgcKXYPycki9pszs63lBnrkN+A==
+"@nrwl/cli@10.0.0-beta.4":
+  version "10.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-10.0.0-beta.4.tgz#1d9037ca17a4a11e869d028fcfa075e32ea8576c"
+  integrity sha512-fYDFtNEhSqD8qbereNAPxSJcJX9Hb8LZpptwW96AmnIfv3zGm0s3KPgC63EnyMAUTFvquWYzw7rCJYjBmbGkOw==
   dependencies:
-    "@nrwl/tao" "10.0.0-beta.2"
+    "@nrwl/tao" "10.0.0-beta.4"
     chalk "2.4.2"
     tmp "0.0.33"
     yargs "^11.0.0"
     yargs-parser "10.0.0"
 
-"@nrwl/cypress@10.0.0-beta.2":
-  version "10.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@nrwl/cypress/-/cypress-10.0.0-beta.2.tgz#7dbf331391683247a8af9ea0c475e39c1b83c6f2"
-  integrity sha512-xIUDUKsCnqOn8VTipAr9We/UTpr4Dmql7hJnnqc1ypwn5TaFIv7DhQZWEHh1J8xDQ5TBT5RCR481fZHcrU34CA==
+"@nrwl/cypress@10.0.0-beta.4":
+  version "10.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@nrwl/cypress/-/cypress-10.0.0-beta.4.tgz#27c01aa7cf2abafbfa51a2b5a1e1b0b22ba5aeff"
+  integrity sha512-aA3xCmBv0/XQiC/4AvRb2OqD9gOGVgWJ1CaVfysfTOKwjOUehfS9zDxbDqtJrx3XtaRBCA1cQ5O0eenxZchUKA==
   dependencies:
     "@angular-devkit/architect" "~0.1000.0"
     "@angular-devkit/core" "~10.0.0"
@@ -1991,26 +1991,26 @@
     tsconfig-paths-webpack-plugin "3.2.0"
     webpack-node-externals "1.7.2"
 
-"@nrwl/eslint-plugin-nx@10.0.0-beta.2":
-  version "10.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@nrwl/eslint-plugin-nx/-/eslint-plugin-nx-10.0.0-beta.2.tgz#62bc9281add8938bcaa42299bd9eb805ea244cfd"
-  integrity sha512-HJkSluDki3UKpGR+0Fn/lU+y/MfS7Xr6HdGKfPs0p8W8pWuFoPTM6v/WWUbLx4gtxoEsm6waAenpO6PI+Ftadg==
+"@nrwl/eslint-plugin-nx@10.0.0-beta.4":
+  version "10.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@nrwl/eslint-plugin-nx/-/eslint-plugin-nx-10.0.0-beta.4.tgz#6beb99a3a5c46f4777b8cc6c89ce60d1de641e28"
+  integrity sha512-Y90UncTw6tjLNVqNin8vR6ulj3OYzn3YZcfy99+TNpg7TvIxSZWqk/IoC6R968apmXQPHxNbSYWyRUFCtakrBw==
   dependencies:
     "@typescript-eslint/experimental-utils" "^2.19.2"
 
-"@nrwl/jest@10.0.0-beta.2":
-  version "10.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@nrwl/jest/-/jest-10.0.0-beta.2.tgz#77cc6964dad22c59d478bd3fb182b6248d930da2"
-  integrity sha512-FiFepzao7B2WwwIOISqizDSC3cE7GLORWQQFyun78Wm9BK247+q3CfysR3EKWq8WUDonER13zZLnyAurK+Kz2A==
+"@nrwl/jest@10.0.0-beta.4":
+  version "10.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@nrwl/jest/-/jest-10.0.0-beta.4.tgz#8ea67c8ef577158e30d20df3e508222b11658799"
+  integrity sha512-yvhjHKO3WtephIqrZbbCsZgYxyugv2s7lCVg4+62vncexqk177RUUOkpw8pGa6PFCtG7YTbOgpRGGjdk1lmYTA==
   dependencies:
     "@angular-devkit/architect" "~0.1000.0"
     "@angular-devkit/core" "~10.0.0"
     "@angular-devkit/schematics" "~10.0.0"
 
-"@nrwl/tao@10.0.0-beta.2":
-  version "10.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-10.0.0-beta.2.tgz#a791a6bafb29606181a2ef23137e82f94f4595fa"
-  integrity sha512-jxEv5j3n+tMiZA7IKwBKZnSIB+f2LrWDxB2Vt2XxIdeHmSr6bP8zlcNQ7gbtcGYrjGsb+0juX0b0EAw0fubA3w==
+"@nrwl/tao@10.0.0-beta.4":
+  version "10.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-10.0.0-beta.4.tgz#a0b053abcebc5c391d7e928357e0fe8a65a5f87e"
+  integrity sha512-CBTTkzjwqQ/DoDHC/1YHtBbhYEbMBfKrKbDxvjSWniP6nImHbEd2xkAOo6t0ZH7SXZgdmJ7Ie2hwF7V9Q/mXbA==
   dependencies:
     "@angular-devkit/architect" "~0.1000.0"
     "@angular-devkit/core" "~10.0.0"
@@ -2019,20 +2019,19 @@
     minimist "^1.2.0"
     strip-json-comments "2.0.1"
 
-"@nrwl/workspace@10.0.0-beta.2":
-  version "10.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@nrwl/workspace/-/workspace-10.0.0-beta.2.tgz#4013ce8df95d584b7bded2186a38c716237399d9"
-  integrity sha512-nEhxBTQXERd5Yce2jiVwCZ42dVjGbdoVgd9XslH/qvEhTqv96X28LeuRFx6qmaKCnQet6YLLvGD1JFaW+FeVpg==
+"@nrwl/workspace@10.0.0-beta.4":
+  version "10.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@nrwl/workspace/-/workspace-10.0.0-beta.4.tgz#cd33a9dfd09fd33bd239c90ee24f0a98f459bdc5"
+  integrity sha512-dk3psrDyFm3pRko8k7cXVsn7jA65JmRtvRwOE2kR3TLdhqh/0xHFy8Eeh3eO+g6mdAGn0Y1tut/0lKztDab9qg==
   dependencies:
     "@angular-devkit/core" "~10.0.0"
     "@angular-devkit/schematics" "~10.0.0"
-    "@nrwl/cli" "10.0.0-beta.2"
+    "@nrwl/cli" "10.0.0-beta.4"
     axios "0.19.2"
     chalk "2.4.2"
     cosmiconfig "4.0.0"
     dotenv "8.2.0"
     fs-extra "6.0.0"
-    hasha "5.1.0"
     ignore "5.0.4"
     npm-run-all "4.1.5"
     opn "^5.3.0"
@@ -6430,14 +6429,6 @@ hash.js@^1.0.0, hash.js@^1.0.3:
   dependencies:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
-
-hasha@5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/hasha/-/hasha-5.1.0.tgz#dd05ccdfcfe7dab626247ce2a58efe461922f4ca"
-  integrity sha512-OFPDWmzPN1l7atOV1TgBVmNtBxaIysToK6Ve9DK+vT6pYuklw/nPNT+HJbZi0KDcI6vWB+9tgvZ5YD7fA3CXcA==
-  dependencies:
-    is-stream "^2.0.0"
-    type-fest "^0.8.0"
 
 hex-color-regex@^1.1.0:
   version "1.1.0"
@@ -13113,7 +13104,7 @@ type-fest@^0.6.0:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.6.0.tgz#8d2a2370d3df886eb5c90ada1c5bf6188acf838b"
   integrity sha512-q+MB8nYR1KDLrgr4G5yemftpMC7/QLqVndBmEEdqzmNj5dcFOO4Oo8qlwZE3ULT3+Zim1F8Kq4cBnikNhlCMlg==
 
-type-fest@^0.8.0, type-fest@^0.8.1:
+type-fest@^0.8.1:
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.8.1.tgz#09e249ebde851d3b1e48d27c105444667f17b83d"
   integrity sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==
