@@ -27,15 +27,13 @@
       "implicitDependencies": ["example"]
     },
     "playground-shared": {
-      "tags": ["scope:web"],
-      "implicitDependencies": ["ngx-highlight", "ngx-search-bar"]
+      "tags": ["scope:web"]
     },
     "ngx-highlight": {
       "tags": ["scope:shared", "scope:published", "type:ui"]
     },
     "ngx-search-bar": {
-      "tags": ["scope:published", "scope:shared", "type:ui"],
-      "implicitDependencies": ["ngx-highlight"]
+      "tags": ["scope:published", "scope:shared", "type:ui"]
     },
     "ui-base": {
       "tags": ["scope:shared", "type:ui"]
