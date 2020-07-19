@@ -82,7 +82,7 @@ export class AutoSearchBarComponent implements AfterViewInit, OnDestroy {
     this._searchBar.search
       .pipe(takeUntil(this._ngUnsubscribe$))
       .subscribe((value) => {
-        console.debug('submit: ', value);
+        console.log('submit: ', value);
         // Reset the search suggestions
         this._searchSuggestions.next([]);
       });
@@ -98,7 +98,7 @@ export class AutoSearchBarComponent implements AfterViewInit, OnDestroy {
     params.set('output', 'firefox');
     params.set('q', searchOptions.query);
 
-    console.debug('loading search suggestions: ', searchOptions);
+    console.log('loading search suggestions: ', searchOptions);
     this.isLoading = true;
     this._http
       .get(
