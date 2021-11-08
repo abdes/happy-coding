@@ -8579,12 +8579,10 @@ json-parse-better-errors@^1.0.0, json-parse-better-errors@^1.0.1, json-parse-bet
   resolved "https://registry.yarnpkg.com/json-parse-better-errors/-/json-parse-better-errors-1.0.2.tgz#bb867cfb3450e69107c131d1c514bab3dc8bcaa9"
   integrity sha512-mrqyZKfX5EhL7hvqcV6WG1yYjnjeuYDzDhhcAAUrq8Po85NBQBJP+ZDUT75qZQ98IkUoBqdkExkukOU7Ts2wrw==
 
-json-ptr@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/json-ptr/-/json-ptr-2.1.0.tgz#245b11088d284caf2e059f6eb3dc7aba46b8c54c"
-  integrity sha512-dcjfEj415rJ9i/UcQ/qwrd7NJYruTJMtWwwsM7ZRjJes98kMQYZDqnSXigNe7vVHiZ1RATbR0RbihOQ5xxDYEg==
-  dependencies:
-    tslib "^2.2.0"
+json-ptr@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/json-ptr/-/json-ptr-3.0.0.tgz#77dc484740270c6148fd2778f000f439c7f08ff2"
+  integrity sha512-p3hBrUrcbzAdmIVOQA85C/TvapouI1M1YxLbrM0lEs0AVLweBqNfZcS1mlo83uneHBYYtc/T4pzHZzrYNQpu+w==
 
 json-schema-traverse@^0.4.1:
   version "0.4.1"
@@ -13053,7 +13051,7 @@ tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.13.0.tgz#c881e13cc7015894ed914862d276436fa9a47043"
   integrity sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==
 
-tslib@^2.0.0, tslib@^2.2.0:
+tslib@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.2.0.tgz#fb2c475977e35e241311ede2693cee1ec6698f5c"
   integrity sha512-gS9GVHRU+RGn5KQM2rllAlR3dU6m7AcpJKdtH8gFvQiC4Otgk98XnmMU+nZenHt/+VhnBPWwgrJsyrdcw6i23w==
